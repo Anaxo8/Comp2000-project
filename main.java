@@ -19,7 +19,27 @@ class GFG {
         frame.setLayout(null);
         frame.setVisible(true);
 
+        InventoryTester();
+    }
 
+    public static void InventoryTester(){
+        Item a = new Item("a", 13); // common
+        Item b = new Item("b", 26); // uncommon
+        Item c = new Item("c", 51); // rare
+        Item d = new Item("d", 64); // rare 
+        Item e = new Item("e", 76); // legendary
+        Item f = new Item("f", 67);
+
+        Item[] list = {a,b,c,d};
+
+        Inventory inv = new Inventory(list);
+        inv.addItem(e);
+
+        for (int i = 0; i < inv.inventory.length && inv.inventory[i] != null; i++) {
+            System.out.println(inv.inventory[i].getName());
+        }
+
+        inv.addItem(f); // fail
     }
 
     public static void ItemTester(){
