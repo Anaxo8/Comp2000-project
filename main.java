@@ -15,13 +15,24 @@ class GFG {
         helmet.setBounds(150,200,220,100); 
         //frame.add(button);
         frame.add(helmet);
-        frame.setSize(500,600);
+        frame.setSize(700,600);
         frame.setLayout(null);
+
+        KillFeed killFeed = KillFeedTester();
+
+        JTextArea killFeedArea = new JTextArea();
+        killFeedArea.setBounds(10, 400, 250, 100);
+        killFeedArea.setEditable(false);
+
+        for (String message : killFeed.getMessages()) {
+        killFeedArea.append(message + "\n");
+}
+
+        frame.add(killFeedArea);
         frame.setVisible(true);
-
-
     }
 
+    
     public static void ItemTester(){
         Item a = new Item("a", 13); // common
         Item b = new Item("b", 26); // uncommon
@@ -53,6 +64,17 @@ class GFG {
             System.out.println("Failed to load image!");
             return new ImageIcon("./fallback.jpg");
         }
-
     }
+      public static KillFeed KillFeedTester() {
+    KillFeed killFeed = new KillFeed();
+
+    killFeed.addKill("Player", "Enemy 1");
+    killFeed.addKill("Player", "Enemy 2");
+    killFeed.addKill("Player", "Enemy 3");
+    killFeed.addKill("Player", "Enemy 4");
+    killFeed.addKill("Player", "Enemy 5");
+    killFeed.addKill("Player", "Enemy 6");
+
+    return killFeed;
+}
 }
