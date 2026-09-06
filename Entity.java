@@ -4,13 +4,22 @@ public class Entity {
     int atk;
     int def;
 
-    Item[] inventory;
+    String name;
+    Inventory inv;
 
-    Entity(int hp, int atk, int def) {
-
+    Entity(String name, int hp, int atk, int def) {
+        this.name = name;
+        this.hp = hp;
+        this.atk = atk;
+        this.def = atk;
+        this.inv = new Inventory();
     } 
 
-    Entity(int hp, int atk, int def, Item[] inv) {
-        
+    Entity(String name, int hp, int atk, int def, Inventory inv) {
+        this.name = name;
+        this.hp = hp;
+        this.atk = atk;
+        this.def = atk;
+        this.inv = inv;
     } 
 }
