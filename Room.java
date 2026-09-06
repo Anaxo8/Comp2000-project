@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Random;
 
 enum RoomType {
     EMPTY,
@@ -12,9 +13,9 @@ enum RoomRole{ //Saw enum in item class and thought it'd make sense here
 }
 public class Room{
     int id;
-    RoomType type;
-    RoomRole role;
-    List<contents> contents;
+    private RoomType type;
+    private RoomRole role;
+    private ArrayList<contents> contents;
 
     Room(int id, RoomRole role) {
         this.id = id;
@@ -24,7 +25,9 @@ public class Room{
     }
 
     public void RollRoomType() {
-        int roll = random(0,50);
+        Random n = new Random();
+        int roll = n.nextInt(51);
+        
         if (roll % 2 == 0) {
             type = RoomType.ITEM;
             //IDEA: Add a specific number of random items from a list (TBD if this will happen)
