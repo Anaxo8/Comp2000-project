@@ -25,8 +25,8 @@ class GFG {
         killFeedArea.setEditable(false);
 
         for (String message : killFeed.getMessages()) {
-        killFeedArea.append(message + "\n");
-}
+            killFeedArea.append(message + "\n");
+        }
 
         frame.add(killFeedArea);
         frame.setVisible(true);
@@ -65,16 +65,17 @@ class GFG {
             return new ImageIcon("./fallback.jpg");
         }
     }
-      public static KillFeed KillFeedTester() {
-    KillFeed killFeed = new KillFeed();
 
-    killFeed.addKill("Player", "Enemy 1");
-    killFeed.addKill("Player", "Enemy 2");
-    killFeed.addKill("Player", "Enemy 3");
-    killFeed.addKill("Player", "Enemy 4");
-    killFeed.addKill("Player", "Enemy 5");
-    killFeed.addKill("Player", "Enemy 6");
+    public static KillFeed KillFeedTester() {
+        KillFeed killFeed = new KillFeed();
 
-    return killFeed;
-}
+        killFeed.addKill("Player", "Enemy 1");
+        killFeed.addKill("Player", "Enemy 2");
+        killFeed.addKill("Player", "Enemy 3");
+        killFeed.addKill("Player", "Enemy 4");
+        killFeed.addKill("Player", "Enemy 5");
+        killFeed.addKill("Player", "Enemy 6");
+
+        return killFeed;
+    }
 }
