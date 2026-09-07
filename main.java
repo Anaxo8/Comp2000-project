@@ -37,9 +37,9 @@ class main {
         frame.add(killFeedArea);
         frame.setVisible(true);
 
-        InventoryTester();
     }
 
+    /* 
     public static void InventoryTester(){
         Item a = new Item("a", 13); // common
         Item b = new Item("b", 26); // uncommon
@@ -79,6 +79,7 @@ class main {
             System.out.println(item.getRarity());
         }
     }
+    */
 
     public static ImageIcon loadImage(String URL){
         if(URL != null) {

@@ -1,25 +1,16 @@
-public class Entity {
-    private int hp;
-    private int hpMax;
-    private int atk;
-    private int def;
-
+public abstract class Entity {
+    private Stats stats;
     private String name;
     private Inventory inv;
 
     Entity(String name, int hp, int atk, int def) {
-        this.name = name;
-        this.hp = hp;
-        this.atk = atk;
-        this.def = atk;
+        this.stats = new Stats(hp, atk, def);
         this.inv = new Inventory();
     } 
 
     Entity(String name, int hp, int atk, int def, Inventory inv) {
         this.name = name;
-        this.hp = hp;
-        this.atk = atk;
-        this.def = atk;
+        
         this.inv = inv;
     }
 
@@ -31,44 +22,44 @@ public class Entity {
         if (other == null)
             return;
 
-        other.setHp(other.getHp() - this.atk + other.getDef()); // simple algorithm, dmg = this atk - other def. subtract dmg from other.hp
+        other.setHp(other.getHp() - this.getAtk() + other.getDef()); // simple algorithm, dmg = this atk - other def. subtract dmg from other.hp
     }
 
     private void itemStatUps(){ // access the items to calculate how they affect the stats
-
+        
     }
 
     // getters and setters
     public int getHp() {
-        return hp;
+        return this.stats.getHp();
     }
 
     public void setHp(int hp) {
-        this.hp = hp;
+        this.stats.setHp(hp);
     }
 
     public int getHpMax() {
-        return hpMax;
+        return this.stats.getHpMax();
     }
 
     public void setHpMax(int hpMax) {
-        this.hpMax = hpMax;
+        this.stats.setHpMax(hpMax);
     }
 
     public int getAtk() {
-        return atk;
+        return this.stats.getAtk();
     }
 
     public void setAtk(int atk) {
-        this.atk = atk;
+        this.stats.setAtk(atk);
     }
 
     public int getDef() {
-        return def;
+        return this.stats.getDef();
     }
 
     public void setDef(int def) {
-        this.def = def;
+        this.stats.setDef(def);
     }
 
     public String getName() {
