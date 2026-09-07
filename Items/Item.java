@@ -1,10 +1,13 @@
+package Items;
 import javax.swing.ImageIcon;
+import Stats.Stats;
 
-public class Item {
-    private String name;
-    private int score;
-    private Rarity rarity;
+public abstract class Item {
+    protected String name;
+    protected int score;
+    protected Rarity rarity;
     private String fileName;
+    protected Stats statUp;
 
     enum Rarity { //enum got mentioned, so putting in as a start.
         COMMON,
@@ -37,10 +40,18 @@ public class Item {
         this.name = null;
         this.score = 0;
         this.rarity = null;
+        this.statUp = null;
         this.fileName = "./images/fallback.jpg";
     }
 
-    Item compare(Item other) { // compares scores, returns the one with higher score. if they are equal, returns the calling object
+    @Override
+    public String toString(){
+        String s = this.name + " " + this.score + " " + this.rarity + " " + this.statUp.toString();
+
+        return s;
+    }
+
+    public Item compareBetter(Item other) { // compares scores, returns the one with higher score. if they are equal, returns the calling object
         Item better;
 
         if (this.getScore() < other.getScore()) {
@@ -53,6 +64,23 @@ public class Item {
         
         return better;
     }
+
+    public Item compareWorse(Item other) { // compares scores, returns the one with lower score. if they are equal, returns the calling object
+        Item worse;
+
+        if (this.getScore() > other.getScore()) {
+            worse = other;
+        }
+        // this has a lesser or equal score
+        else {
+            worse = this;
+        }
+        
+        return worse;
+    }
+
+    public abstract void setStatUp(int stat); // each subclass can set a different stat
+
 
     public static ImageIcon loadImage(String URL)
     {
@@ -91,5 +119,9 @@ public class Item {
 
     public void setRarity(Rarity rarity) {
         this.rarity = rarity;
+    }
+
+    public Stats getStatUp(){
+        return this.statUp;
     }
 }

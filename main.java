@@ -62,37 +62,17 @@ class main {
         frame.add(border);
         frame.add(bg);
         frame.setVisible(true);
+
+        Tester.ItemSwapTester();
+        Tester.minimumDmgTester();
     }
 
-
-    public static void ItemTester(){
-        Item a = new Item("a", 13); // common
-        Item b = new Item("b", 26); // uncommon
-        Item c = new Item("c", 51); // rare
-        Item d = new Item("d", 64); // rare 
-        Item e = new Item("e", 76); // legendary
-
-        ArrayList<Item> items = new ArrayList<Item>();
-        items.add(a);
-        items.add(b);
-        items.add(c);
-        items.add(d);
-        items.add(e);
-
-        for (Item item : items) {
-            System.out.println(item.getRarity());
-        }
-    }
-
-    public static ImageIcon loadImage(String URL)
-    {
-        if(URL != null)
-        {
+    public static ImageIcon loadImage(String URL){
+        if(URL != null) {
             System.out.println("Loaded image" + URL);
             return new ImageIcon(URL);
         }
-        else
-        {
+        else {
             System.out.println("Failed to load image!");
             return new ImageIcon("./images/fallback.jpg");
         }
