@@ -13,7 +13,7 @@ public class Tester {
     public static void EntityTester(){ 
         // Entity can damage another entity
         Player one = new Player("one", 20, 10, 5);
-        Enemy two = new Enemy("two", 20, 10 ,5);
+        Enemy two = new Enemy("two", 20, 10 ,5, null);
 
         one.attack(two);
         System.out.printf("Expected %d, got %d\n", 15, two.getHp());
@@ -56,6 +56,30 @@ public class Tester {
         System.out.println(one.getStats().toString());
         one.removeStatUps();
         System.out.println(one.getStats().toString());
+    }
+
+    public static void ItemSwapTester(){
+        Item a = new Weapon("a", 13, 3); // common
+        Item b = new Armour("b", 26, 6); // uncommon
+        Item c = new Weapon("c", 51, 10); // rare
+
+        Player one = new Player("one", 20, 10, 5);
+
+        one.addItem(a);
+        one.addItem(b);
+        Inventory oneInv = one.getInv();
+
+        oneInv.showContents();
+        System.out.println("---------");
+
+        one.swapBetter(c);
+        oneInv.showContents(); // c should be in a's place, b should be untouched
+        System.out.println("---------");
+
+        Item g = new Weapon("a", 13, 3); // common
+
+        one.swapBetter(g);
+        oneInv.showContents();
     }
 
     public static void InventoryTester(){

@@ -30,6 +30,10 @@ public class Inventory {
         }
     }
 
+    public void addToIndex(Item item, int index) { // overwrite an index
+        this.inventory[index] = item; 
+    }
+
     public void removeItem(int index){ // items are deleted from existence
         // don't need to care if the space is already null, we can just set null to null in that case.
         this.inventory[index] = null;
@@ -68,10 +72,50 @@ public class Inventory {
         return inventory[index];
     }
 
+    public int indexOf(Item item){
+        for (int i = 0; i < this.inventory.length; i++){
+            if (this.inventory[i] == item){ // hash comparison should work for this case
+                return i;
+            }
+        }
+        return -1; // didnt find it.
+    }
+
     public void showContents(){
         for (int i = 0; i < this.inventory.length; i++){
             System.out.println(this.inventory[i]);
         }
+    }
+
+    public boolean isEmpty() {
+        for (int i = 0; i < this.inventory.length; i++){
+            if (this.inventory[i] != null)
+                return false;
+        }
+        return true;
+    }
+
+    public Item getWorst(){
+        if (this.isEmpty())
+            return null;
+
+        Item worst = this.inventory[0]; // might be null
+
+        for (int i = 0; i < this.inventory.length && worst == null; i++){ // finds first item in the list. there must be at least 1
+            Item curr = this.inventory[i];
+            if (curr != null){
+                worst = curr;
+            }
+        }
+
+        for (int i = 0; i < this.inventory.length; i++){
+            Item curr = this.inventory[i];
+            if (curr != null){
+                worst = curr.compareWorse(worst); // compares to all the non null indexes. we want the worse one
+            }
+        }
+
+        return worst;
     }
 
     private int findEmptySpace() { // returns first empty index, or -1 if full

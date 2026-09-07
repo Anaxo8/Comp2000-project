@@ -51,7 +51,7 @@ public abstract class Item {
         return s;
     }
 
-    public Item compare(Item other) { // compares scores, returns the one with higher score. if they are equal, returns the calling object
+    public Item compareBetter(Item other) { // compares scores, returns the one with higher score. if they are equal, returns the calling object
         Item better;
 
         if (this.getScore() < other.getScore()) {
@@ -64,6 +64,21 @@ public abstract class Item {
         
         return better;
     }
+
+    public Item compareWorse(Item other) { // compares scores, returns the one with lower score. if they are equal, returns the calling object
+        Item worse;
+
+        if (this.getScore() > other.getScore()) {
+            worse = other;
+        }
+        // this has a lesser or equal score
+        else {
+            worse = this;
+        }
+        
+        return worse;
+    }
+
     public abstract void setStatUp(int stat); // each subclass can set a different stat
 
 

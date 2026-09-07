@@ -63,7 +63,7 @@ class main {
         frame.add(bg);
         frame.setVisible(true);
 
-        Tester.EntityTester();
+        Tester.ItemSwapTester();
     }
 
     public static ImageIcon loadImage(String URL){
