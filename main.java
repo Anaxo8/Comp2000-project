@@ -17,10 +17,12 @@ class main {
         //helmet.setBounds(150,200,220,100); 
 
         frame.add(border);
-        frame.add(bg);
+        //frame.add(bg);
         frame.add(helmet);
         frame.setSize(730,510);
         frame.setLayout(null);
+
+        
 
         KillFeed killFeed = KillFeedTester();
 
