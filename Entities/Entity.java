@@ -3,6 +3,7 @@ import Items.Item;
 import Stats.Stats;
 
 public abstract class Entity {
+    protected boolean isDied;
     protected Stats stats;
     protected String name;
     protected Inventory inv;
@@ -11,12 +12,14 @@ public abstract class Entity {
 
     Entity(String name, int hp, int atk, int def) {
         this.stats = new Stats(hp, atk, def);
+        this.isDied = false;
         this.inv = new Inventory();
     } 
 
     Entity(String name, int hp, int atk, int def, Inventory inv) {
         this.name = name;
-        
+        this.stats = new Stats(hp, atk, def);
+        this.isDied = false;
         this.inv = inv;
     }
 
@@ -42,6 +45,18 @@ public abstract class Entity {
     public void removeStatUps(){
         this.stats.statsMinus(statUps);
     }
+
+    public boolean isDied(){
+        if (this.getHp() <= 0){
+            isDied = true;
+        }
+        else {
+            isDied = false;
+        }
+
+        return isDied;
+    }
+
 
     // getters and setters
     public int getHp() {
