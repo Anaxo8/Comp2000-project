@@ -23,11 +23,11 @@ class main {
 
         border.setBounds(0,0,720,480);
         bg.setBounds(0,0,720,480);
-        helmet.setBounds(575,50,48,48); 
-        chestplate.setBounds(575,108,48,48);
-        boots.setBounds(575,166,48,48);
-        sword.setBounds(520,88, 48, 48);
-        shield.setBounds(630, 88, 48, 48);
+        helmet.setBounds(100,280,48,48); 
+        chestplate.setBounds(100,340,48,48);
+        boots.setBounds(100,400,48,48);
+        sword.setBounds(40,320, 48, 48);
+        shield.setBounds(160, 320, 48, 48);
 
         helmet.addActionListener(e -> System.out.println("LOADED HELMET"));
         chestplate.addActionListener(e -> System.out.println("LOADED CHESTPLATE!"));
