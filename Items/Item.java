@@ -1,10 +1,12 @@
 package Items;
+import javax.swing.ImageIcon;
 import Stats.Stats;
 
 public abstract class Item {
     protected String name;
     protected int score;
     protected Rarity rarity;
+    private String fileName;
     protected Stats statUp;
 
     enum Rarity { //enum got mentioned, so putting in as a start.
@@ -30,6 +32,8 @@ public abstract class Item {
         else {
             this.rarity = Rarity.LEGENDARY;
         }
+
+        fileName = "./images/fallback.jpg";
     }
 
     Item() { 
@@ -37,6 +41,7 @@ public abstract class Item {
         this.score = 0;
         this.rarity = null;
         this.statUp = null;
+        this.fileName = "./images/fallback.jpg";
     }
 
     @Override
@@ -59,8 +64,23 @@ public abstract class Item {
         
         return better;
     }
-
     public abstract void setStatUp(int stat); // each subclass can set a different stat
+
+
+    public static ImageIcon loadImage(String URL)
+    {
+        if(URL != null)
+        {
+            System.out.println("Loaded image: "+URL);
+            return new ImageIcon(URL);
+        }
+        else
+        {
+            System.out.println("Failed to load image!");
+            return new ImageIcon("./fallback.jpg");
+        }
+
+    }
 
     public String getName() {
         return name;
