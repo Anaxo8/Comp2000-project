@@ -4,9 +4,6 @@ import java.util.Collection;
 
 import javax.swing.*;
 
-import Items.*;
-import Entities.*;
-
 class main {
     public static void main(String[] args)
     {
@@ -25,8 +22,6 @@ class main {
         frame.setSize(730,510);
         frame.setLayout(null);
 
-        
-
         KillFeed killFeed = KillFeedTester();
 
         JTextArea killFeedArea = new JTextArea();
@@ -42,9 +37,6 @@ class main {
 
         Tester.EntityTester();
     }
-
-    
-    
 
     public static ImageIcon loadImage(String URL){
         if(URL != null) {
