@@ -34,7 +34,7 @@ public class Item {
         this.rarity = null;
     }
 
-    Item compare(Item other) { // compares scores, returns the one with higher score. if they are equal, returns the calling object
+    public Item compare(Item other) { // compares scores, returns the one with higher score. if they are equal, returns the calling object
         Item better;
 
         if (this.getScore() < other.getScore()) {
