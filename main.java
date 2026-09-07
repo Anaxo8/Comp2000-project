@@ -25,7 +25,7 @@ class main {
 
         JFrame frame = new JFrame();
         Player james = new Player("james", 10, 10, 10);
-        james.addItem(new Items.Armour("james", 20, 0));
+        james.addItem(new Items.Armour("banded Helmet", 20, 200));
 
         initUI(frame, sword, shield, helmet, chestplate, boots, james);
 
@@ -39,6 +39,7 @@ class main {
     {
         if(p.getInv().getItem(index) == null)
         {
+            ItemDescription.setText("");
             System.out.println("NO ITEM EQUIPED");
             return;
         }
@@ -53,7 +54,7 @@ class main {
         JLabel bg = new JLabel(new ImageIcon("./images/bg.png"));
         JTextArea itemDescription = new JTextArea();
         itemDescription.setText("DWAODPWAKDA");
-        itemDescription.setBounds(350, 300, 190, 130);
+        itemDescription.setBounds(300, 300, 400, 130);
         itemDescription.setEditable(false);
         itemDescription.setOpaque(false);
         itemDescription.setForeground(Color.WHITE); 
@@ -61,10 +62,10 @@ class main {
 
 
         helmet.addActionListener(e -> LoadChar(p, itemDescription, 0));
-        chestplate.addActionListener(e -> System.out.println("LOADED CHESTPLATE!"));
-        boots.addActionListener(e -> System.out.println("LOADED BOOTS"));
-        sword.addActionListener(e -> System.out.println("LOADED SWORD"));
-        shield.addActionListener(e -> System.out.println("LOADED SHIELD"));
+        chestplate.addActionListener(e -> LoadChar(p, itemDescription, 1));
+        boots.addActionListener(e -> LoadChar(p, itemDescription, 2));
+        sword.addActionListener(e -> LoadChar(p, itemDescription, 3));
+        shield.addActionListener(e -> LoadChar(p, itemDescription, 4));
 
         border.setBounds(0,0,720,480);
         bg.setBounds(0,0,720,480);
