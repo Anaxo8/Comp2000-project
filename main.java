@@ -4,6 +4,9 @@ import java.util.Collection;
 
 import javax.swing.*;
 
+import Items.*;
+import Entities.*;
+
 class main {
     public static void main(String[] args)
     {
@@ -37,49 +40,11 @@ class main {
         frame.add(killFeedArea);
         frame.setVisible(true);
 
-    }
-
-    /* 
-    public static void InventoryTester(){
-        Item a = new Item("a", 13); // common
-        Item b = new Item("b", 26); // uncommon
-        Item c = new Item("c", 51); // rare
-        Item d = new Item("d", 64); // rare 
-        Item e = new Item("e", 76); // legendary
-        Item f = new Item("f", 67);
-
-        Item[] list = {a,b,c,d};
-
-        Inventory inv = new Inventory(list);
-        inv.addItem(e);
-
-        for (int i = 0; i < inv.inventory.length && inv.inventory[i] != null; i++) {
-            System.out.println(inv.inventory[i].getName());
-        }
-
-        inv.addItem(f); // fail
+        Tester.EntityTester();
     }
 
     
-    public static void ItemTester(){
-        Item a = new Item("a", 13); // common
-        Item b = new Item("b", 26); // uncommon
-        Item c = new Item("c", 51); // rare
-        Item d = new Item("d", 64); // rare 
-        Item e = new Item("e", 76); // legendary
-
-        ArrayList<Item> items = new ArrayList<Item>();
-        items.add(a);
-        items.add(b);
-        items.add(c);
-        items.add(d);
-        items.add(e);
-
-        for (Item item : items) {
-            System.out.println(item.getRarity());
-        }
-    }
-    */
+    
 
     public static ImageIcon loadImage(String URL){
         if(URL != null) {

@@ -1,7 +1,13 @@
+package Entities;
+import Items.Item;
+import Stats.Stats;
+
 public abstract class Entity {
-    private Stats stats;
-    private String name;
-    private Inventory inv;
+    protected Stats stats;
+    protected String name;
+    protected Inventory inv;
+    
+    private Stats statUps;
 
     Entity(String name, int hp, int atk, int def) {
         this.stats = new Stats(hp, atk, def);
@@ -25,8 +31,16 @@ public abstract class Entity {
         other.setHp(other.getHp() - this.getAtk() + other.getDef()); // simple algorithm, dmg = this atk - other def. subtract dmg from other.hp
     }
 
-    private void itemStatUps(){ // access the items to calculate how they affect the stats
-        
+    public void getStatUps(){ 
+        this.statUps = this.inv.getTotalStatUps(); // Entity now knows the stat total of its inventory
+    }
+
+    public void applyStatUps(){
+        this.stats.statsAdd(statUps); 
+    }
+
+    public void removeStatUps(){
+        this.stats.statsMinus(statUps);
     }
 
     // getters and setters
@@ -60,6 +74,10 @@ public abstract class Entity {
 
     public void setDef(int def) {
         this.stats.setDef(def);
+    }
+
+    public Stats getStats(){
+        return this.stats;
     }
 
     public String getName() {

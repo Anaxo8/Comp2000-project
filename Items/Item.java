@@ -1,8 +1,11 @@
+package Items;
+import Stats.Stats;
+
 public abstract class Item {
-    private String name;
-    private int score;
-    private Rarity rarity;
-    private Stats statUp;
+    protected String name;
+    protected int score;
+    protected Rarity rarity;
+    protected Stats statUp;
 
     enum Rarity { //enum got mentioned, so putting in as a start.
         COMMON,
@@ -27,8 +30,6 @@ public abstract class Item {
         else {
             this.rarity = Rarity.LEGENDARY;
         }
-
-        setStatUp(); // subclasses must set their own stat up
     }
 
     Item() { 
@@ -36,6 +37,13 @@ public abstract class Item {
         this.score = 0;
         this.rarity = null;
         this.statUp = null;
+    }
+
+    @Override
+    public String toString(){
+        String s = this.name + " " + this.score + " " + this.rarity + " " + this.statUp.toString();
+
+        return s;
     }
 
     public Item compare(Item other) { // compares scores, returns the one with higher score. if they are equal, returns the calling object
@@ -52,7 +60,7 @@ public abstract class Item {
         return better;
     }
 
-    protected abstract void setStatUp(); // each subclass can set a different stat
+    public abstract void setStatUp(int stat); // each subclass can set a different stat
 
     public String getName() {
         return name;

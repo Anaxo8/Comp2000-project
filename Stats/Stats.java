@@ -7,14 +7,14 @@ public class Stats {
     private int atk;
     private int def;
 
-    Stats(){
+    public Stats(){
         this.hp = 0;
         this.hpMax = 0;
         this.atk = 0;
         this.def = 0;
     }
 
-    Stats(int hp, int atk, int def){
+    public Stats(int hp, int atk, int def){
         this.hp = hp;
         this.hpMax = hp;
         this.atk = atk;
@@ -28,6 +28,22 @@ public class Stats {
         this.hpMax += other.hpMax;
         this.atk += other.atk;
         this.def += other.def;
+    }
+
+    public void statsMinus(Stats other) {
+        if (other == null)
+            return;
+
+        this.hpMax -= other.hpMax;
+        this.atk -= other.atk;
+        this.def -= other.def;
+    }
+
+    @Override
+    public String toString(){
+        String s = this.hp + "/" + this.hpMax + " " + this.atk + " " + this.def;
+
+        return s;
     }
 
     public int getHp() {
