@@ -8,17 +8,40 @@ class main {
     public static void main(String[] args)
     {
         JFrame frame = new JFrame();
-        JLabel helmet = new JLabel(loadImage("./helm1.png"));
-        JLabel border = new JLabel(new ImageIcon("./border.png"));
-        JLabel bg = new JLabel(new ImageIcon("./bg.png"));
+        initUI(frame);
+    }
+
+    public static void initUI(JFrame frame){
+        JButton chestplate = new JButton(new ImageIcon("./images/emptychestplate.png"));
+        JButton boots = new JButton(new ImageIcon("./images/emptyboots.png"));
+        JButton sword = new JButton(new ImageIcon("./images/emptysword.png"));
+        JButton shield = new JButton(new ImageIcon("./images/emptyshield.png"));
+        JButton helmet = new JButton(new ImageIcon("./images/emptyhelm.png"));
+
+        JLabel border = new JLabel(new ImageIcon("./images/border.png"));
+        JLabel bg = new JLabel(new ImageIcon("./images/bg.png"));
 
         border.setBounds(0,0,720,480);
         bg.setBounds(0,0,720,480);
-        //helmet.setBounds(150,200,220,100); 
+        helmet.setBounds(575,50,48,48); 
+        chestplate.setBounds(575,108,48,48);
+        boots.setBounds(575,166,48,48);
+        sword.setBounds(520,88, 48, 48);
+        shield.setBounds(630, 88, 48, 48);
 
+        helmet.addActionListener(e -> System.out.println("LOADED HELMET"));
+        chestplate.addActionListener(e -> System.out.println("LOADED CHESTPLATE!"));
+        boots.addActionListener(e -> System.out.println("LOADED BOOTS"));
+        sword.addActionListener(e -> System.out.println("LOADED SWORD"));
+        shield.addActionListener(e -> System.out.println("LOADED SHIELD"));
+
+        frame.add(helmet);
+        frame.add(chestplate);
+        frame.add(boots);
+        frame.add(sword);
+        frame.add(shield);
         frame.add(border);
         frame.add(bg);
-        frame.add(helmet);
         frame.setSize(730,510);
         frame.setLayout(null);
 
@@ -36,7 +59,7 @@ class main {
         frame.setVisible(true);
     }
 
-    
+
     public static void ItemTester(){
         Item a = new Item("a", 13); // common
         Item b = new Item("b", 26); // uncommon
@@ -66,7 +89,7 @@ class main {
         else
         {
             System.out.println("Failed to load image!");
-            return new ImageIcon("./fallback.jpg");
+            return new ImageIcon("./images/fallback.jpg");
         }
     }
 

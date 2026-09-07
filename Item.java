@@ -1,7 +1,10 @@
+import javax.swing.ImageIcon;
+
 public class Item {
     private String name;
     private int score;
     private Rarity rarity;
+    private String fileName;
 
     enum Rarity { //enum got mentioned, so putting in as a start.
         COMMON,
@@ -26,12 +29,15 @@ public class Item {
         else {
             this.rarity = Rarity.LEGENDARY;
         }
+
+        fileName = "./images/fallback.jpg";
     }
 
     Item() { 
         this.name = null;
         this.score = 0;
         this.rarity = null;
+        this.fileName = "./images/fallback.jpg";
     }
 
     Item compare(Item other) { // compares scores, returns the one with higher score. if they are equal, returns the calling object
@@ -46,6 +52,21 @@ public class Item {
         }
         
         return better;
+    }
+
+    public static ImageIcon loadImage(String URL)
+    {
+        if(URL != null)
+        {
+            System.out.println("Loaded image: "+URL);
+            return new ImageIcon(URL);
+        }
+        else
+        {
+            System.out.println("Failed to load image!");
+            return new ImageIcon("./fallback.jpg");
+        }
+
     }
 
     public String getName() {
