@@ -1,6 +1,8 @@
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.awt.Color;
+import java.awt.Font;
 
 import javax.swing.*;
 
@@ -40,22 +42,25 @@ class main {
         frame.add(boots);
         frame.add(sword);
         frame.add(shield);
-        frame.add(border);
-        frame.add(bg);
         frame.setSize(730,510);
         frame.setLayout(null);
 
         KillFeed killFeed = KillFeedTester();
 
         JTextArea killFeedArea = new JTextArea();
-        killFeedArea.setBounds(10, 400, 250, 100);
+        killFeedArea.setBounds(530, 100, 190, 130);
         killFeedArea.setEditable(false);
-
+        killFeedArea.setOpaque(false);
+        killFeedArea.setForeground(Color.WHITE); 
+        killFeedArea.setFont(new Font("Arial", Font.BOLD, 14));
+        
         for (String message : killFeed.getMessages()) {
             killFeedArea.append(message + "\n");
         }
 
         frame.add(killFeedArea);
+        frame.add(border);
+        frame.add(bg);
         frame.setVisible(true);
     }
 
