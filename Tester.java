@@ -111,6 +111,16 @@ public class Tester {
         one.swapBetter(m);
         oneInv.showContents(); // no change
         System.out.println("---------");
+
+        one.getInv().removeItem(1);
+        oneInv.showContents(); // no change
+        System.out.println("---------");
+
+        Item n = new Weapon("c", 50, 10); // rare
+        one.swapBetter(n);
+        oneInv.showContents(); // no change
+        System.out.println("---------");
+
     }
 
     public static void InventoryTester(){
