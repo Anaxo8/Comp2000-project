@@ -31,7 +31,11 @@ public abstract class Entity {
         if (other == null)
             return;
 
-        other.setHp(other.getHp() - this.getAtk() + other.getDef()); // simple algorithm, dmg = this atk - other def. subtract dmg from other.hp
+        int dmg = this.getAtk() - other.getDef();
+        if (dmg <= 0)
+            dmg = 1; // minimum of 1 dmg to prevent infinite battles;
+
+        other.setHp(other.getHp() - dmg); // simple algorithm, dmg = this atk - other def. subtract dmg from other.hp
     }
 
     public void getStatUps(){ 

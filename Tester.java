@@ -102,7 +102,14 @@ public class Tester {
         inv.addItem(f); // fail
     }
 
-    
+    public static void minimumDmgTester(){
+        Player one = new Player("one", 20, 10, 6);
+        Enemy two = new Enemy("two", 20, 5, 5, null);
+
+        two.attack(one);
+        System.out.println(one.getHp());
+    }
+
     public static void ItemTester(){
         Item a = new Weapon("a", 13, 3); // common
         Item b = new Armour("b", 26, 6); // uncommon
