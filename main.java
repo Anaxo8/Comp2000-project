@@ -102,6 +102,11 @@ class main {
         killFeed.addKill("Player", "Enemy 4");
         killFeed.addKill("Player", "Enemy 5");
         killFeed.addKill("Player", "Enemy 6");
+        try {
+        killFeed.addKill("Player", "");
+        } catch (IllegalArgumentException e) {
+        System.out.println("KillFeed error: " + e.getMessage());
+}
 
         return killFeed;
     }
