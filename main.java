@@ -64,7 +64,6 @@ class main {
         frame.setVisible(true);
 
         Tester.ItemSwapTester();
-        Tester.minimumDmgTester();
     }
 
     public static ImageIcon loadImage(String URL){
