@@ -124,4 +124,10 @@ public abstract class Item {
     public Stats getStatUp(){
         return this.statUp;
     }
+
+    @Override 
+    public void toString()
+    {
+        return this.getName() + " " + this.getScore() + " " + this.getRarity();
+    }
 }
