@@ -25,7 +25,7 @@ public class Tester {
 
         // Entity can pick up items
         Item a = new Weapon("a", 13, 3); // common
-        Item b = new Armour("b", 26, 6); // uncommon
+        Item b = new Armour("b", 26, 6, 0); // uncommon
         Inventory oneInv = one.getInv();
 
         oneInv.showContents();
@@ -59,9 +59,9 @@ public class Tester {
     }
 
     public static void ItemSwapTester(){ 
-        Item a = new Weapon("a", 13, 3); // common
-        Item b = new Armour("b", 26, 6); // uncommon
-        Item c = new Weapon("c", 51, 10); // rare
+        Weapon a = new Weapon("a", 13, 3); // common
+        Armour b = new Armour("b", 26, 6, 0); // uncommon
+        Weapon c = new Weapon("c", 51, 10); // rare
 
         Player one = new Player("one", 20, 10, 5);
 
@@ -72,12 +72,12 @@ public class Tester {
         oneInv.showContents();
         System.out.println("---------");
 
-        one.swapBetter(c);
+        one.swapBetterWeapon(c);
         oneInv.showContents(); // c should be in a's place, b should be untouched
         System.out.println("---------");
 
-        Item g = new Weapon("a", 13, 3); // common
-        Item h = new Armour("b", 26, 6); // uncommon
+        Weapon g = new Weapon("a", 13, 3); // common
+        Armour h = new Armour("b", 26, 6, 1); // uncommon
         Item i = new Weapon("c", 51, 10); // rare
 
         one.swapBetter(g);
@@ -123,13 +123,21 @@ public class Tester {
 
     }
 
+    public static void invWeaponTester(){
+
+    }
+
+    public static void invArmourTester(){
+        
+    }
+
     public static void InventoryTester(){
         Item a = new Weapon("a", 13, 3); // common
-        Item b = new Armour("b", 26, 6); // uncommon
+        Item b = new Armour("b", 26, 6, 1); // uncommon
         Item c = new Weapon("c", 51, 10); // rare
-        Item d = new Armour("d", 64, 14); // rare 
+        Item d = new Armour("d", 64, 14, 2); // rare 
         Item e = new Weapon("e", 76, 20); // legendary
-        Item f = new Armour("f", 67, 16);
+        Item f = new Armour("f", 67, 16, 3);
 
         Item[] list = {a,b,c,d};
 
@@ -153,9 +161,9 @@ public class Tester {
 
     public static void ItemTester(){
         Item a = new Weapon("a", 13, 3); // common
-        Item b = new Armour("b", 26, 6); // uncommon
+        Item b = new Armour("b", 26, 6,1); // uncommon
         Item c = new Weapon("c", 51, 10); // rare
-        Item d = new Armour("d", 64, 14); // rare 
+        Item d = new Armour("d", 64, 14, 3); // rare 
         Item e = new Weapon("e", 76, 20); // legendary
 
         ArrayList<Item> items = new ArrayList<Item>();

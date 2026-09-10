@@ -25,7 +25,7 @@ class main {
 
         JFrame frame = new JFrame();
         Player james = new Player("james", 10, 10, 10);
-        james.addItem(new Items.Armour("banded Helmet", 20, 200));
+        james.addItem(new Items.Armour("banded Helmet", 20, 200, 0));
 
         initUI(frame, sword, shield, helmet, chestplate, boots, james);
 
@@ -64,8 +64,8 @@ class main {
         helmet.addActionListener(e -> LoadChar(p, itemDescription, 0));
         chestplate.addActionListener(e -> LoadChar(p, itemDescription, 1));
         boots.addActionListener(e -> LoadChar(p, itemDescription, 2));
-        sword.addActionListener(e -> LoadChar(p, itemDescription, 3));
-        shield.addActionListener(e -> LoadChar(p, itemDescription, 4));
+        shield.addActionListener(e -> LoadChar(p, itemDescription, 3));
+        sword.addActionListener(e -> LoadChar(p, itemDescription, 4));
 
         border.setBounds(0,0,720,480);
         bg.setBounds(0,0,720,480);
