@@ -1,9 +1,5 @@
-import java.io.*;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.awt.Color;
 import java.awt.Font;
-
 import javax.swing.*;
 
 class main {
@@ -89,7 +85,7 @@ class main {
         try {
         killFeed.addKill("Player", "");
         } catch (IllegalArgumentException e) {
-        System.out.println("KillFeed error: " + e.getMessage());
+        System.out.println("KillFeed error: " + e.getMessage()); //To avoid terminating the program at IllegalArgumentException
 }
 
         return killFeed;
