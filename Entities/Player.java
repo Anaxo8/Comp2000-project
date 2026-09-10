@@ -62,6 +62,7 @@ public class Player extends Entity {
 
         if (heldItem == null) {
             this.inv.addArmour(newItem);
+            return;
         }
         // neither are null also they are the correct type :)
 
@@ -79,6 +80,7 @@ public class Player extends Entity {
 
         if (heldItem == null){
             this.inv.addWeapon(newItem);
+            return;
         }
         // neither are null. also they must both be weapons
 

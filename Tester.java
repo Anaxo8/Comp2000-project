@@ -24,18 +24,18 @@ public class Tester {
         System.out.printf("Expected %d, got %d\n", 15, one.getHp());
 
         // Entity can pick up items
-        Item a = new Weapon("a", 13, 3); // common
-        Item b = new Armour("b", 26, 6, 0); // uncommon
+        Weapon a = new Weapon("a", 13, 3); // common
+        Armour b = new Armour("b", 26, 6, 0); // uncommon
         Inventory oneInv = one.getInv();
 
         oneInv.showContents();
         System.out.println("--------------");
 
-        one.addItem(a);
+        one.addWeapon(a);
         oneInv.showContents();
         System.out.println("--------------");
 
-        one.addItem(b);
+        one.addArmour(b);
         oneInv.showContents();
         System.out.println("--------------");
 
@@ -46,8 +46,8 @@ public class Tester {
 
         // Entity can apply stat ups
         oneInv.removeItem(1);
-        one.addItem(a);
-        one.addItem(b);
+        one.addWeapon(a);
+        one.addArmour(b);
 
         System.out.println(one.getStats().toString());
         one.getStatUps();
@@ -65,8 +65,8 @@ public class Tester {
 
         Player one = new Player("one", 20, 10, 5);
 
-        one.addItem(a);
-        one.addItem(b);
+        one.addWeapon(a);
+        one.addArmour(b);
         Inventory oneInv = one.getInv();
 
         oneInv.showContents();
@@ -78,37 +78,37 @@ public class Tester {
 
         Weapon g = new Weapon("a", 13, 3); // common
         Armour h = new Armour("b", 26, 6, 1); // uncommon
-        Item i = new Weapon("c", 51, 10); // rare
+        Weapon i = new Weapon("c", 51, 10); // rare
 
-        one.swapBetter(g);
+        one.swapBetterWeapon(g);
         oneInv.showContents();
         System.out.println("---------");
 
-        one.swapBetter(h);
+        one.swapBetterArmour(h);
         oneInv.showContents();
         System.out.println("---------");
 
-        one.swapBetter(i);
+        one.swapBetterWeapon(i);
         oneInv.showContents(); // fourth item is now "c"
         System.out.println("---------");
 
-        Item j = new Weapon("c", 51, 10); // rare
-        one.swapBetter(j);
+        Weapon j = new Weapon("c", 51, 10); // rare
+        one.swapBetterWeapon(j);
         oneInv.showContents(); // 1st item is now "c"
         System.out.println("---------");
 
-        Item k = new Weapon("c", 51, 10); // rare
-        one.swapBetter(k);
+        Weapon k = new Weapon("c", 51, 10); // rare
+        one.swapBetterWeapon(k);
         oneInv.showContents(); // 5th item is now "c"
         System.out.println("---------");
 
-        Item l = new Weapon("c", 51, 10); // rare
-        one.swapBetter(l);
+        Weapon l = new Weapon("c", 51, 10); // rare
+        one.swapBetterWeapon(l);
         oneInv.showContents(); // 2nd item is now "c" (all Cs)
         System.out.println("---------");
 
-        Item m = new Weapon("c", 51, 10); // rare
-        one.swapBetter(m);
+        Weapon m = new Weapon("c", 51, 10); // rare
+        one.swapBetterWeapon(m);
         oneInv.showContents(); // no change
         System.out.println("---------");
 
@@ -116,8 +116,8 @@ public class Tester {
         oneInv.showContents(); // no change
         System.out.println("---------");
 
-        Item n = new Weapon("c", 50, 10); // rare
-        one.swapBetter(n);
+        Weapon n = new Weapon("c", 50, 10); // rare
+        one.swapBetterWeapon(n);
         oneInv.showContents(); // no change
         System.out.println("---------");
 
