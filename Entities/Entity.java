@@ -11,6 +11,7 @@ public abstract class Entity {
     private Stats statUps;
 
     Entity(String name, int hp, int atk, int def) {
+        this.name = name;
         this.stats = new Stats(hp, atk, def);
         this.isDied = false;
         this.inv = new Inventory();
