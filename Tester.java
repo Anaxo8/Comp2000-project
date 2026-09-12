@@ -25,18 +25,18 @@ public class Tester {
         System.out.printf("Expected %d, got %d\n", 15, one.getHp());
 
         // Entity can pick up items
-        Item a = new Weapon("a", 13, 3); // common
-        Item b = new Armour("b", 26, 6); // uncommon
+        Weapon a = new Weapon("a", 13, 3); // common
+        Armour b = new Armour("b", 26, 6, 0); // uncommon
         Inventory oneInv = one.getInv();
 
         oneInv.showContents();
         System.out.println("--------------");
 
-        one.addItem(a);
+        one.addWeapon(a);
         oneInv.showContents();
         System.out.println("--------------");
 
-        one.addItem(b);
+        one.addArmour(b);
         oneInv.showContents();
         System.out.println("--------------");
 
@@ -47,8 +47,8 @@ public class Tester {
 
         // Entity can apply stat ups
         oneInv.removeItem(1);
-        one.addItem(a);
-        one.addItem(b);
+        one.addWeapon(a);
+        one.addArmour(b);
 
         System.out.println(one.getStats().toString());
         one.getStatUps();
@@ -60,56 +60,56 @@ public class Tester {
     }
 
     public static void ItemSwapTester(){ 
-        Item a = new Weapon("a", 13, 3); // common
-        Item b = new Armour("b", 26, 6); // uncommon
-        Item c = new Weapon("c", 51, 10); // rare
+        Weapon a = new Weapon("a", 13, 3); // common
+        Armour b = new Armour("b", 26, 6, 0); // uncommon
+        Weapon c = new Weapon("c", 51, 10); // rare
 
         Player one = new Player("one", 20, 10, 5);
 
-        one.addItem(a);
-        one.addItem(b);
+        one.addWeapon(a);
+        one.addArmour(b);
         Inventory oneInv = one.getInv();
 
         oneInv.showContents();
         System.out.println("---------");
 
-        one.swapBetter(c);
+        one.swapBetterWeapon(c);
         oneInv.showContents(); // c should be in a's place, b should be untouched
         System.out.println("---------");
 
-        Item g = new Weapon("a", 13, 3); // common
-        Item h = new Armour("b", 26, 6); // uncommon
-        Item i = new Weapon("c", 51, 10); // rare
+        Weapon g = new Weapon("a", 13, 3); // common
+        Armour h = new Armour("b", 26, 6, 1); // uncommon
+        Weapon i = new Weapon("c", 51, 10); // rare
 
-        one.swapBetter(g);
+        one.swapBetterWeapon(g);
         oneInv.showContents();
         System.out.println("---------");
 
-        one.swapBetter(h);
+        one.swapBetterArmour(h);
         oneInv.showContents();
         System.out.println("---------");
 
-        one.swapBetter(i);
+        one.swapBetterWeapon(i);
         oneInv.showContents(); // fourth item is now "c"
         System.out.println("---------");
 
-        Item j = new Weapon("c", 51, 10); // rare
-        one.swapBetter(j);
+        Weapon j = new Weapon("c", 51, 10); // rare
+        one.swapBetterWeapon(j);
         oneInv.showContents(); // 1st item is now "c"
         System.out.println("---------");
 
-        Item k = new Weapon("c", 51, 10); // rare
-        one.swapBetter(k);
+        Weapon k = new Weapon("c", 51, 10); // rare
+        one.swapBetterWeapon(k);
         oneInv.showContents(); // 5th item is now "c"
         System.out.println("---------");
 
-        Item l = new Weapon("c", 51, 10); // rare
-        one.swapBetter(l);
+        Weapon l = new Weapon("c", 51, 10); // rare
+        one.swapBetterWeapon(l);
         oneInv.showContents(); // 2nd item is now "c" (all Cs)
         System.out.println("---------");
 
-        Item m = new Weapon("c", 51, 10); // rare
-        one.swapBetter(m);
+        Weapon m = new Weapon("c", 51, 10); // rare
+        one.swapBetterWeapon(m);
         oneInv.showContents(); // no change
         System.out.println("---------");
 
@@ -117,20 +117,28 @@ public class Tester {
         oneInv.showContents(); // no change
         System.out.println("---------");
 
-        Item n = new Weapon("c", 50, 10); // rare
-        one.swapBetter(n);
+        Weapon n = new Weapon("c", 50, 10); // rare
+        one.swapBetterWeapon(n);
         oneInv.showContents(); // no change
         System.out.println("---------");
 
     }
 
+    public static void invWeaponTester(){
+
+    }
+
+    public static void invArmourTester(){
+        
+    }
+
     public static void InventoryTester(){
         Item a = new Weapon("a", 13, 3); // common
-        Item b = new Armour("b", 26, 6); // uncommon
+        Item b = new Armour("b", 26, 6, 1); // uncommon
         Item c = new Weapon("c", 51, 10); // rare
-        Item d = new Armour("d", 64, 14); // rare 
+        Item d = new Armour("d", 64, 14, 2); // rare 
         Item e = new Weapon("e", 76, 20); // legendary
-        Item f = new Armour("f", 67, 16);
+        Item f = new Armour("f", 67, 16, 3);
 
         Item[] list = {a,b,c,d};
 
@@ -154,9 +162,9 @@ public class Tester {
 
     public static void ItemTester(){
         Item a = new Weapon("a", 13, 3); // common
-        Item b = new Armour("b", 26, 6); // uncommon
+        Item b = new Armour("b", 26, 6,1); // uncommon
         Item c = new Weapon("c", 51, 10); // rare
-        Item d = new Armour("d", 64, 14); // rare 
+        Item d = new Armour("d", 64, 14, 3); // rare 
         Item e = new Weapon("e", 76, 20); // legendary
 
         ArrayList<Item> items = new ArrayList<Item>();

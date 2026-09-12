@@ -1,5 +1,5 @@
 package Entities;
-import Items.Item;
+import Items.*;
 import Stats.Stats;
 
 public class Inventory {
@@ -17,6 +17,37 @@ public class Inventory {
             this.inventory[count] = inv[count];
             count++;
         }
+    }
+
+    public void addArmour(Armour item){
+        if (item == null)
+            return; 
+
+        switch (item.getPosition()){
+            case HELM:
+                //i 0
+                this.inventory[0] = item;
+            break;
+
+            case CHEST:
+                // i 1
+                this.inventory[1] = item;
+                break;
+            
+            case BOOTS:
+                // i 2
+                this.inventory[2] = item;
+                break;
+
+            case SHIELD:
+                // i 3
+                this.inventory[3] = item;
+                break;
+        }
+    }
+
+    public void addWeapon(Weapon item){
+        this.inventory[4] = item;
     }
 
     public void addItem(Item i) { // find the first empty space, add into it, or do nothing if inventory is full
@@ -39,7 +70,7 @@ public class Inventory {
 
     public void removeItem(int index){ // items are deleted from existence
         // don't need to care if the space is already null, we can just set null to null in that case.
-        if (index >= this.inventory.length)
+        if (index >= this.inventory.length || index < 0)
             return;
         
         this.inventory[index] = null;
@@ -78,6 +109,40 @@ public class Inventory {
         return inventory[index];
     }
 
+    public Weapon getWeapon(){
+        Weapon w = null;
+        try {
+            w = (Weapon)this.inventory[4];    
+        } catch (NullPointerException e) {
+            System.out.println("No weapon equipped");
+            return null;
+        } catch (Exception e) {
+            System.out.println("Wrong type stored at index: 4. Clearing index: 4");
+            this.inventory[4] = null;
+            return null;
+        }
+        
+        return w;
+    }
+
+    public Armour getArmour(int index){
+        Armour a = null;
+
+        try {
+            a = (Armour)this.inventory[index % 4]; // can access indexes 0 - 3 (should be armour only)
+        } catch (NullPointerException e) {
+            System.out.println("No armour equipped in this slot");
+            return null;
+        } catch (Exception e) {
+            System.out.printf("Wrong type stored at index %d: . Clearing index: %d", index%4, index%4);
+            this.inventory[index % 4] = null;
+            return null;
+        } 
+
+        return a;
+    }
+
+    /* 
     public int indexOf(Item item){
         for (int i = 0; i < this.inventory.length; i++){
             if (this.inventory[i] == item){ // hash comparison should work for this case
@@ -86,6 +151,7 @@ public class Inventory {
         }
         return -1; // didnt find it.
     }
+    */
 
     public void showContents(){
         for (int i = 0; i < this.inventory.length; i++){
