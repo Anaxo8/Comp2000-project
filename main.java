@@ -1,7 +1,11 @@
 import java.awt.Color;
 import java.awt.Font;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.*;
 
+import Entities.Enemy;
 import Entities.Player;
 import Items.Item;
 class main {
@@ -74,7 +78,7 @@ class main {
         frame.setSize(730,510);
         frame.setLayout(null);
 
-        KillFeed killFeed = KillFeedTester();
+        KillFeed killFeed = new KillFeed();
 
         JTextArea killFeedArea = new JTextArea();
         killFeedArea.setBounds(530, 100, 190, 130);
@@ -82,17 +86,93 @@ class main {
         killFeedArea.setOpaque(false);
         killFeedArea.setForeground(Color.WHITE); 
         killFeedArea.setFont(new Font("Arial", Font.BOLD, 14));
-        
-        for (String message : killFeed.getMessages()) {
-            killFeedArea.append(message + "\n");
-        }
+
+        // players and enemies UI (temp)
+        JTextArea playerArea = new JTextArea();
+        JTextArea enemyArea = new JTextArea();
+        JLabel combatStatus = new JLabel();
+
+        Player pOne = new Player("pOne", 20, 10, 5);
+        Player pTwo = new Player("pTwo", 20, 10, 5);
+        Player pThree = new Player("pThree", 10, 5, 1);
+        Player pFour = new Player("pFour", 25, 10, 10);
+
+        Enemy eOne = new Enemy("eOne", 20, 5, 5, null);
+        Enemy eTwo = new Enemy("eTwo", 15, 5, 5, null);
+        Enemy eThree = new Enemy("eThree", 20, 10, 5, null);
+        Enemy eFour = new Enemy("eFour", 20, 10, 5, null);
+
+        CombatController controller = new CombatController();
+
+        List<Player> players = new ArrayList<>(List.of(pOne, pTwo, pThree, pFour));
+        List<Enemy> enemies = new ArrayList<>(List.of(eOne, eTwo, eThree, eFour));
+
+        playerArea.setEditable(false);
+        playerArea.setOpaque(false);
+        playerArea.setForeground(Color.WHITE);
+        playerArea.setFont(new Font("Arial", Font.BOLD, 14));
+        enemyArea.setEditable(false);
+        enemyArea.setOpaque(false);
+        enemyArea.setForeground(Color.WHITE);
+        enemyArea.setFont(new Font("Arial", Font.BOLD, 14));
+        combatStatus.setForeground(Color.WHITE);
+        combatStatus.setFont(new Font("Arial", Font.BOLD, 14));
+
+        playerArea.setBounds(80, 80, 160, 130);
+        enemyArea.setBounds(280, 80, 160, 130);
+        combatStatus.setBounds(170, 210, 250, 30);
+
+        // Runs one combat attack every 700ms and refreshes the GUI to show the battle live.
+        Timer combatTimer = new Timer(700, e -> {
+            controller.oneAttack(players, enemies, killFeed);
+            CombatController.CombatStatus status = controller.checkCombatStatus(players, enemies);
+            updateCombatDisplay(players, enemies, playerArea, enemyArea, killFeedArea, killFeed, combatStatus, controller.getCurrentRound(), status);
+
+            if(status != CombatController.CombatStatus.ONGOING) {
+                ((Timer)e.getSource()).stop();
+            }
+        });
+
+
+        frame.add(playerArea);
+        frame.add(enemyArea);
+        frame.add(combatStatus);
 
         frame.add(killFeedArea);
         frame.add(border);
         frame.add(bg);
         frame.setVisible(true);
 
-        Tester.ItemSwapTester();
+        updateCombatDisplay(players, enemies, playerArea, enemyArea, killFeedArea, killFeed, combatStatus, 0, controller.checkCombatStatus(players, enemies));
+        combatTimer.start();
+
+        //Tester.ItemSwapTester();
+    }
+
+    // Refreshes the combat UI with current HP, kill feed, round, and combat status.
+    public static void updateCombatDisplay(List<Player> players, List<Enemy> enemies, JTextArea playerArea, JTextArea enemyArea,
+         JTextArea killFeedArea, KillFeed killFeed, JLabel combatStatus, int round, CombatController.CombatStatus status) {
+            String playerText = "PLAYERS\n\n";
+
+            for(Player player : players) {
+                playerText += player.getName() + "      HP: " + player.getHp() + "\n";
+            }
+            playerArea.setText(playerText);
+
+            String enemyText = "ENEMIES\n\n";
+
+            for(Enemy enemy : enemies) {
+                enemyText += enemy.getName() + "        HP: " + enemy.getHp() + "\n";
+            }
+            enemyArea.setText(enemyText);
+
+            String killFeedText = "";
+            for(String message : killFeed.getMessages()) {
+                killFeedText += message + "\n";
+            }
+            killFeedArea.setText(killFeedText);
+
+            combatStatus.setText("Round " + round + " - " + status);
     }
 
     public static ImageIcon loadImage(String URL){
