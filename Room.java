@@ -15,7 +15,7 @@ public class Room{
     int id;
     private RoomType type;
     private RoomRole role;
-    private ArrayList<contents> contents;
+    private ArrayList<Object> contents;
 
     Room(int id, RoomRole role) {
         this.id = id;
@@ -28,6 +28,11 @@ public class Room{
         Random n = new Random();
         int roll = n.nextInt(51);
         
+        if (role != RoomRole.NORMAL) {
+            type = RoomType.EMPTY;
+            return;
+        }
+
         if (roll % 2 == 0) {
             type = RoomType.ITEM;
             //IDEA: Add a specific number of random items from a list (TBD if this will happen)
@@ -35,5 +40,9 @@ public class Room{
             type = RoomType.MONSTER;
             //SAME IDEA AS THE ITEM BUT WITH MONSTERS
         }
+    }
+
+    public void clearContents() {
+        contents.clear();
     }
 }

@@ -1,9 +1,5 @@
-import java.io.*;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.awt.Color;
 import java.awt.Font;
-
 import javax.swing.*;
 
 class main {
