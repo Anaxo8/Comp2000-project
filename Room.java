@@ -28,8 +28,13 @@ public class Room{
         Random n = new Random();
         int roll = n.nextInt(51);
         
-        if (role != RoomRole.NORMAL) {
+        if (role == RoomRole.START) {
             type = RoomType.EMPTY;
+            return;
+        }
+
+        if (role == RoomRole.END)  {
+            type = RoomType.ITEM;
             return;
         }
 
