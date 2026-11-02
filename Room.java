@@ -12,7 +12,7 @@ enum RoomRole{ //Saw enum in item class and thought it'd make sense here
     END
 }
 public class Room{
-    int id;
+    private int id;
     private RoomType type;
     private RoomRole role;
     private ArrayList<Object> contents;
@@ -44,6 +44,12 @@ public class Room{
         } else {
             type = RoomType.MONSTER;
             //SAME IDEA AS THE ITEM BUT WITH MONSTERS
+        }
+    }
+
+    public void addContent(Object content) {
+        if (content != null) {
+            contents.add(content);
         }
     }
 
