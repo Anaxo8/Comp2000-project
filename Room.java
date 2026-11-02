@@ -24,7 +24,7 @@ public class Room{
         this.contents = new ArrayList<>();
     }
 
-    public void RollRoomType() {
+    public void rollRoomType() {
         Random n = new Random();
         int roll = n.nextInt(51);
         
