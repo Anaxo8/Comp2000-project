@@ -27,7 +27,7 @@ public class Dungeon {
                 role = RoomRole.NORMAL;
             }
 
-            Room room = new room(i, role);
+            Room room = new Room(i, role);
             room.rollRoomType();
             rooms.add(room);
         }
