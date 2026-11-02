@@ -33,7 +33,7 @@ public class Room{
             return;
         }
 
-        if (roll % 2 == 0) {
+        if (role == RoomRole.NORMAL && roll % 2 == 0) {
             type = RoomType.ITEM;
             //IDEA: Add a specific number of random items from a list (TBD if this will happen)
         } else {
