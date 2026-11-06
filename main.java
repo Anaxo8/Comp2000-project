@@ -1,13 +1,11 @@
+import Entities.Enemy;
+import Entities.Player;
 import java.awt.Color;
 import java.awt.Font;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
-
 import javax.swing.*;
-
-import Entities.Enemy;
-import Entities.Player;
-import Items.Item;
 class main {
     public static void main(String[] args)
     {
@@ -167,9 +165,12 @@ class main {
             enemyArea.setText(enemyText);
 
             String killFeedText = "";
-            for(String message : killFeed.getMessages()) {
-                killFeedText += message + "\n";
-            }
+            Iterator<String> iterator = killFeed.iterator();
+
+            while (iterator.hasNext()) {
+            String message = iterator.next();
+            killFeedText += message + "\n";
+}
             killFeedArea.setText(killFeedText);
 
             combatStatus.setText("Round " + round + " - " + status);

@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class KillFeed {
 
@@ -25,7 +26,8 @@ public class KillFeed {
     }
 }
 
-    public ArrayList<String> getMessages() {
-        return messages;
-    }
+   
+    public Iterator<String> iterator() {
+    return messages.iterator();
+}
 }
