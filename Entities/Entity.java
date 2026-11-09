@@ -1,5 +1,5 @@
 package Entities;
-import Items.Item;
+import Items.*;
 import Stats.Stats;
 
 public abstract class Entity {
@@ -24,8 +24,12 @@ public abstract class Entity {
         this.inv = inv;
     }
 
-    public void addItem(Item toAdd){
-        inv.addItem(toAdd);
+    public void addWeapon(Weapon item){
+        this.inv.addWeapon(item);
+    }
+
+    public void addArmour(Armour item){
+        this.inv.addArmour(item);
     }
     
     public void attack(Entity other) {
