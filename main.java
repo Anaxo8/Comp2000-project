@@ -7,8 +7,11 @@ import java.util.Iterator;
 import java.util.List;
 import javax.swing.*;
 class main {
+    public static Player selectedPlayer;
     public static void main(String[] args)
     {
+
+
         JButton chestplate = new JButton(new ImageIcon("./images/emptychestplate.png"));
         JButton boots = new JButton(new ImageIcon("./images/emptyboots.png"));
         JButton sword = new JButton(new ImageIcon("./images/emptysword.png"));
@@ -27,7 +30,7 @@ class main {
 
         initUI(frame, sword, shield, helmet, chestplate, boots, james);
 
-        
+
 
 
 
@@ -57,13 +60,14 @@ class main {
         itemDescription.setOpaque(false);
         itemDescription.setForeground(Color.WHITE); 
         itemDescription.setFont(new Font("Arial", Font.BOLD, 14));
+        selectedPlayer = p;
 
 
-        helmet.addActionListener(e -> LoadChar(p, itemDescription, 0));
-        chestplate.addActionListener(e -> LoadChar(p, itemDescription, 1));
-        boots.addActionListener(e -> LoadChar(p, itemDescription, 2));
-        sword.addActionListener(e -> LoadChar(p, itemDescription, 3));
-        shield.addActionListener(e -> LoadChar(p, itemDescription, 4));
+        helmet.addActionListener(e -> LoadChar(selectedPlayer, itemDescription, 0));
+        chestplate.addActionListener(e -> LoadChar(selectedPlayer, itemDescription, 1));
+        boots.addActionListener(e -> LoadChar(selectedPlayer, itemDescription, 2));
+        sword.addActionListener(e -> LoadChar(selectedPlayer, itemDescription, 3));
+        shield.addActionListener(e -> LoadChar(selectedPlayer, itemDescription, 4));
 
         border.setBounds(0,0,720,480);
         bg.setBounds(0,0,720,480);
@@ -95,6 +99,8 @@ class main {
         Player pThree = new Player("pThree", 10, 5, 1);
         Player pFour = new Player("pFour", 25, 10, 10);
 
+  
+
         Enemy eOne = new Enemy("eOne", 20, 5, 5, null);
         Enemy eTwo = new Enemy("eTwo", 15, 5, 5, null);
         Enemy eThree = new Enemy("eThree", 20, 10, 5, null);
@@ -104,6 +110,26 @@ class main {
 
         List<Player> players = new ArrayList<>(List.of(pOne, pTwo, pThree, pFour));
         List<Enemy> enemies = new ArrayList<>(List.of(eOne, eTwo, eThree, eFour));
+
+        JButton[] gearslots = {helmet,chestplate,boots,sword,shield};
+        List<Player> selectable = new ArrayList<>(List.of(p));
+        selectable.addAll(players);
+
+        List<pbutton> pbuttons = new ArrayList<>();
+        for (Player player : players) {
+            JButton btn = new JButton();
+            pbuttons.add(new pbutton(player, btn, gearslots, itemDescription));
+
+            // Make the button invisible so the name underneath shows through
+            btn.setText("");
+            btn.setOpaque(false);
+            btn.setContentAreaFilled(false);
+            btn.setBorderPainted(false);
+            btn.setFocusPainted(false);
+            btn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+            frame.add(btn);
+        }
 
         playerArea.setEditable(false);
         playerArea.setOpaque(false);
@@ -125,7 +151,7 @@ class main {
             controller.oneAttack(players, enemies, killFeed);
             CombatController.CombatStatus status = controller.checkCombatStatus(players, enemies);
             updateCombatDisplay(players, enemies, playerArea, enemyArea, killFeedArea, killFeed, combatStatus, controller.getCurrentRound(), status);
-
+            positionPlayerButtons(players, pbuttons, playerArea);
             if(status != CombatController.CombatStatus.ONGOING) {
                 ((Timer)e.getSource()).stop();
             }
@@ -142,6 +168,7 @@ class main {
         frame.setVisible(true);
 
         updateCombatDisplay(players, enemies, playerArea, enemyArea, killFeedArea, killFeed, combatStatus, 0, controller.checkCombatStatus(players, enemies));
+        positionPlayerButtons(players, pbuttons, playerArea);
         combatTimer.start();
 
         //Tester.ItemSwapTester();
@@ -169,7 +196,7 @@ class main {
 
             while (iterator.hasNext()) {
             String message = iterator.next();
-            killFeedText += message + "\n";
+                killFeedText += message + "\n";
 }
             killFeedArea.setText(killFeedText);
 
@@ -204,4 +231,22 @@ class main {
 
         return killFeed;
     }
+
+    public static void positionPlayerButtons(List<Player> players, List<pbutton> slots, JTextArea playerArea) {
+    int lineHeight = playerArea.getFontMetrics(playerArea.getFont()).getHeight();
+
+    for (pbutton slot : slots) {
+        int row = players.indexOf(slot.getPlayer());
+        JButton button = slot.getButton();
+
+        if (row == -1) {
+            button.setVisible(false);
+            continue;
+        }
+
+        // +2 skips the "PLAYERS" heading and the blank line under it
+        button.setBounds(playerArea.getX(), playerArea.getY() + (row + 2) * lineHeight, playerArea.getWidth(), lineHeight);
+        button.setVisible(true);
+    }
+}
 }
