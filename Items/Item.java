@@ -124,4 +124,5 @@ public abstract class Item {
     public Stats getStatUp(){
         return this.statUp;
     }
+
 }

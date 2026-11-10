@@ -1,9 +1,10 @@
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class KillFeed {
 
-    private ArrayList<String> messages;
-    private int maxMessages;
+    private ArrayList<String> messages; //generic:only allows for type string in the arrayList
+    private int maxMessages; //no more than 5 messages
 
     public KillFeed() {
         messages = new ArrayList<String>();
@@ -13,8 +14,8 @@ public class KillFeed {
 
     if (killer == null || victim == null ||
         killer.isBlank() || victim.isBlank()) {
-        throw new IllegalArgumentException(
-            "Killer and victim must have a name"
+        throw new IllegalArgumentException(   
+            "Killer and victim must have a name"   //The program will not run 
         );
     }
 
@@ -25,7 +26,8 @@ public class KillFeed {
     }
 }
 
-    public ArrayList<String> getMessages() {
-        return messages;
-    }
+   
+    public Iterator<String> iterator() {
+    return messages.iterator();
+}
 }

@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.List;
 
 import Entities.Enemy;
 import Entities.Inventory;
@@ -58,7 +59,7 @@ public class Tester {
         System.out.println(one.getStats().toString());
     }
 
-    public static void ItemSwapTester(){
+    public static void ItemSwapTester(){ 
         Item a = new Weapon("a", 13, 3); // common
         Item b = new Armour("b", 26, 6); // uncommon
         Item c = new Weapon("c", 51, 10); // rare
@@ -77,9 +78,50 @@ public class Tester {
         System.out.println("---------");
 
         Item g = new Weapon("a", 13, 3); // common
+        Item h = new Armour("b", 26, 6); // uncommon
+        Item i = new Weapon("c", 51, 10); // rare
 
         one.swapBetter(g);
         oneInv.showContents();
+        System.out.println("---------");
+
+        one.swapBetter(h);
+        oneInv.showContents();
+        System.out.println("---------");
+
+        one.swapBetter(i);
+        oneInv.showContents(); // fourth item is now "c"
+        System.out.println("---------");
+
+        Item j = new Weapon("c", 51, 10); // rare
+        one.swapBetter(j);
+        oneInv.showContents(); // 1st item is now "c"
+        System.out.println("---------");
+
+        Item k = new Weapon("c", 51, 10); // rare
+        one.swapBetter(k);
+        oneInv.showContents(); // 5th item is now "c"
+        System.out.println("---------");
+
+        Item l = new Weapon("c", 51, 10); // rare
+        one.swapBetter(l);
+        oneInv.showContents(); // 2nd item is now "c" (all Cs)
+        System.out.println("---------");
+
+        Item m = new Weapon("c", 51, 10); // rare
+        one.swapBetter(m);
+        oneInv.showContents(); // no change
+        System.out.println("---------");
+
+        one.getInv().removeItem(1);
+        oneInv.showContents(); // no change
+        System.out.println("---------");
+
+        Item n = new Weapon("c", 50, 10); // rare
+        one.swapBetter(n);
+        oneInv.showContents(); // no change
+        System.out.println("---------");
+
     }
 
     public static void InventoryTester(){
@@ -127,5 +169,37 @@ public class Tester {
         for (Item item : items) {
             System.out.println(item.getRarity());
         }
+    }
+
+    public static void combatControlTester() {
+        Player pOne = new Player("one", 10, 5, 0);
+        Player pTwo = new Player("two", 20, 10, 5);
+        Player pThree = new Player("three", 20, 10, 5);
+        Player pFour = new Player("four", 20, 15, 5);
+
+        Enemy eOne = new Enemy("eOne", 10, 10, 5, null);
+        Enemy eTwo = new Enemy("eTwo", 20, 5, 5, null);
+        Enemy eThree = new Enemy("eThree", 20, 5, 5, null);
+        Enemy eFour = new Enemy("eFour", 20, 15, 5, null);
+
+        List<Player> pList = new ArrayList<>(List.of(pOne, pTwo, pThree, pFour));
+        List<Enemy> eList = new ArrayList<>(List.of(eOne, eTwo, eThree, eFour));
+        KillFeed killfeed = new KillFeed();
+
+        CombatController c = new CombatController();
+
+        System.out.println(c.runCombat(pList, eList, killfeed));
+
+        System.out.println("pOne: " + pOne.getHp());
+        System.out.println("pTwo: " + pTwo.getHp());
+        System.out.println("pThree: " + pThree.getHp());
+        System.out.println("pFour: " + pFour.getHp());
+
+        System.out.println("eOne: " + eOne.getHp());
+        System.out.println("eTwo: " + eTwo.getHp());
+        System.out.println("eThree: " + eThree.getHp());
+        System.out.println("eFour: " + eFour.getHp());
+
+        System.out.println(killfeed.getMessages());
     }
 }

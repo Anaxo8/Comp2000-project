@@ -31,11 +31,17 @@ public class Inventory {
     }
 
     public void addToIndex(Item item, int index) { // overwrite an index
+        if (index >= this.inventory.length)
+            return;
+
         this.inventory[index] = item; 
     }
 
     public void removeItem(int index){ // items are deleted from existence
         // don't need to care if the space is already null, we can just set null to null in that case.
+        if (index >= this.inventory.length)
+            return;
+        
         this.inventory[index] = null;
     }
 
