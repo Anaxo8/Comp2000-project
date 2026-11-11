@@ -17,16 +17,15 @@ public class pbutton {
     private Player player;
     private JButton button;
 
-    public pbutton(Player player, JButton button, JButton[] slots, JTextArea items)
+    public pbutton(Player player, JButton button, PlayerSelection selection)
     {
         this.player = player;
         this.button = button;
 
-        button.setText(player.getName());
-        button.addActionListener(e -> loadGear(slots, items));
+        button.addActionListener(e -> selection.select(player));
     }
 
-    private void loadGear(JButton[] slots, JTextArea items)
+    /*private void loadGear(JButton[] slots, JTextArea items)
     {
         main.selectedPlayer = player;
         main.updategearscore(player);
@@ -48,7 +47,7 @@ public class pbutton {
         }
 
         System.out.println("Selected " + player.getName());
-    }
+    }*/
 
     public Player getPlayer(){
         return player;
