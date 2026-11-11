@@ -5,9 +5,6 @@ import java.awt.Font;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.IntStream;
-import Items.*;
 import java.util.Arrays;
 import javax.swing.*;
 
@@ -73,13 +70,12 @@ class main {
         Player pTwo = plist.get(1);
         Player pThree = plist.get(2);
         Player pFour = plist.get(3);
-
-        selectedPlayer = pOne;
-        gearscore.setBounds(300,275,200,30);
+ 
         JLabel gearscore = new JLabel();
         gearscore.setForeground(Color.WHITE);
         gearscore.setFont(new Font("Arial", Font.BOLD, 14));
         frame.add(gearscore);
+        gearscore.setBounds(300,275,200,30);
 
         JButton[] gearslots = {helmet, chestplate, boots, sword, shield};
 
@@ -93,7 +89,7 @@ class main {
         sword.addActionListener(e -> LoadChar(selection.getSelected(), itemDescription, 3));
         shield.addActionListener(e -> LoadChar(selection.getSelected(), itemDescription, 4));
 
-        selection.select(p);
+        selection.select(pOne);
 
         border.setBounds(0,0,720,480);
         bg.setBounds(0,0,720,480);
@@ -122,18 +118,10 @@ class main {
 
         List<Enemy> enemies = dungeon.getCurrentRoom().contents;
 
-        Enemy eOne = new Enemy("eOne", 20, 5, 5, new Weapon("BROKEN!!", 99, 30));
-        Enemy eTwo = new Enemy("eTwo", 15, 5, 5, null);
-        Enemy eThree = new Enemy("eThree", 20, 10, 5, null);
-        Enemy eFour = new Enemy("eFour", 20, 10, 5, null);
-
         CombatController controller = new CombatController();
 
         List<Player> players = new ArrayList<>(List.of(pOne, pTwo, pThree, pFour));
         List<Player> alivePlayers = new ArrayList<Player>(players);
-        //List<Enemy> enemies = new ArrayList<>(List.of(eOne, eTwo, eThree, eFour));
-
-        List<Player> selectable = new ArrayList<>(players);
 
         List<pbutton> pbuttons = new ArrayList<>();
         for (Player player : players) {
