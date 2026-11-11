@@ -70,7 +70,7 @@ class main {
         Player pTwo = plist.get(1);
         Player pThree = plist.get(2);
         Player pFour = plist.get(3);
- 
+
         JLabel gearscore = new JLabel();
         gearscore.setForeground(Color.WHITE);
         gearscore.setFont(new Font("Arial", Font.BOLD, 14));
@@ -158,8 +158,8 @@ class main {
         Timer combatTimer = new Timer(700, e -> {
             controller.oneAttack(alivePlayers, enemies, killFeed);
             CombatController.CombatStatus status = controller.checkCombatStatus(alivePlayers, enemies);
-            updateCombatDisplay(players, enemies, playerArea, enemyArea, killFeedArea, killFeed, combatStatus, controller.getCurrentRound(), status);
-            positionPlayerButtons(players, pbuttons, playerArea);
+            updateCombatDisplay(alivePlayers, enemies, playerArea, enemyArea, killFeedArea, killFeed, combatStatus, controller.getCurrentRound(), status);
+            positionPlayerButtons(alivePlayers, pbuttons, playerArea);
             
                 
             if (status == CombatController.CombatStatus.PLAYERS_WIN){
@@ -172,12 +172,16 @@ class main {
                 controller.playersLootEnemies(players); //hey this worked                
                 // go next room
                 Room currentRoom = dungeon.goNextRoom();
-                if (currentRoom == null){
+                if (currentRoom.getRole() == RoomRole.END){
+                    combatStatus.setText("Players beat the dungeon!");
                     ((Timer)e.getSource()).stop(); 
                 }
                 
                 // load new enemies
-                enemies.addAll(dungeon.getCurrentRoom().contents);
+                if (currentRoom != null){
+                    enemies.addAll(dungeon.getCurrentRoom().contents);
+                }
+                
                 // heal players
                 pOne.maxHeal();
                 pTwo.maxHeal();
@@ -186,6 +190,7 @@ class main {
             }    
             
             if (status == CombatController.CombatStatus.ENEMIES_WIN){
+                combatStatus.setText("Enemies beat the players...");
                 ((Timer)e.getSource()).stop(); // only stopping when enemies win
             }
         });

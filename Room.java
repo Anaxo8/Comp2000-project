@@ -208,6 +208,10 @@ public class Room{
     }
     */
 
+    public RoomRole getRole(){
+        return this.role;
+    }
+
     public void clearContents() {
         contents.clear();
     }
