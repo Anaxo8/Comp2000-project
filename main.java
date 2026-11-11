@@ -5,12 +5,11 @@ import java.awt.Font;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import javax.swing.*;
 import java.util.Objects;
 import java.util.stream.IntStream;
+
+import javax.swing.*;
 class main {
-    public static Player selectedPlayer;
-    public static JLabel gearscore = new JLabel();
     public static void main(String[] args)
     {
 
@@ -59,18 +58,27 @@ class main {
         itemDescription.setOpaque(false);
         itemDescription.setForeground(Color.WHITE); 
         itemDescription.setFont(new Font("Arial", Font.BOLD, 14));
-        selectedPlayer = p;
+
+        JLabel gearscore = new JLabel();
         gearscore.setBounds(40,245,200,30);
         gearscore.setForeground(Color.WHITE);
         gearscore.setFont(new Font("Arial", Font.BOLD, 14));
         frame.add(gearscore);
 
-        updategearscore(p);
-        helmet.addActionListener(e -> LoadChar(selectedPlayer, itemDescription, 0));
-        chestplate.addActionListener(e -> LoadChar(selectedPlayer, itemDescription, 1));
-        boots.addActionListener(e -> LoadChar(selectedPlayer, itemDescription, 2));
-        sword.addActionListener(e -> LoadChar(selectedPlayer, itemDescription, 3));
-        shield.addActionListener(e -> LoadChar(selectedPlayer, itemDescription, 4));
+        JButton[] gearslots = {helmet, chestplate, boots, sword, shield};
+
+        PlayerSelection selection = new PlayerSelection();
+        selection.registerobserver(new gearslotobserver(gearslots));
+        selection.registerobserver(new gearscoreobserver(gearscore));
+        selection.registerobserver(player -> itemDescription.setText(""));
+
+        helmet.addActionListener(e -> LoadChar(selection.getSelected(), itemDescription, 0));
+        chestplate.addActionListener(e -> LoadChar(selection.getSelected(), itemDescription, 1));
+        boots.addActionListener(e -> LoadChar(selection.getSelected(), itemDescription, 2));
+        sword.addActionListener(e -> LoadChar(selection.getSelected(), itemDescription, 3));
+        shield.addActionListener(e -> LoadChar(selection.getSelected(), itemDescription, 4));
+
+        selection.select(p);
 
         border.setBounds(0,0,720,480);
         bg.setBounds(0,0,720,480);
@@ -114,14 +122,13 @@ class main {
         List<Player> players = new ArrayList<>(List.of(pOne, pTwo, pThree, pFour));
         List<Enemy> enemies = new ArrayList<>(List.of(eOne, eTwo, eThree, eFour));
 
-        JButton[] gearslots = {helmet,chestplate,boots,sword,shield};
         List<Player> selectable = new ArrayList<>(List.of(p));
         selectable.addAll(players);
 
         List<pbutton> pbuttons = new ArrayList<>();
         for (Player player : players) {
             JButton btn = new JButton();
-            pbuttons.add(new pbutton(player, btn, gearslots, itemDescription));
+            pbuttons.add(new pbutton(player, btn, selection));
 
             // Make the button invisible so the name underneath shows through
             btn.setText("");
@@ -175,16 +182,6 @@ class main {
         combatTimer.start();
 
         //Tester.ItemSwapTester();
-    }
-
-    public static int calculategearscore(Player player)
-    {
-        return IntStream.range(0,5).mapToObj(i -> player.getInv().getItem(i)).filter(Objects::nonNull).mapToInt(item -> item.getScore()).sum();
-    }
-
-    public static void updategearscore(Player player)
-    {
-        gearscore.setText("Gearscore: " + calculategearscore(player));
     }
 
     // Refreshes the combat UI with current HP, kill feed, round, and combat status.
