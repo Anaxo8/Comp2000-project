@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 import java.util.Random;
+import Entities.Enemy;
+import java.util.List;
 
 enum RoomType {
     EMPTY,
@@ -51,6 +53,23 @@ public class Room{
         if (content != null) {
             contents.add(content);
         }
+    }
+
+    public void addEnemy(Enemy enemy) {
+        type = RoomType.MONSTER;
+        addContent(enemy);
+    }
+
+    public List<Enemy> getEnemies() {
+        List<Enemy> enemies = new ArrayList<>();
+
+        for (Object content : contents) {
+            if (content instanceof Enemy) {
+                enemies.add((Enemy) content);
+            }
+        }
+
+        return enemies;
     }
 
     public void clearContents() {

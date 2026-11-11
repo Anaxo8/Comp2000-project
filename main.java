@@ -1,5 +1,7 @@
 import Entities.Enemy;
 import Entities.Player;
+import Items.Item;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.util.ArrayList;
@@ -112,15 +114,14 @@ class main {
 
   
 
-        Enemy eOne = new Enemy("eOne", 20, 5, 5, null);
-        Enemy eTwo = new Enemy("eTwo", 15, 5, 5, null);
-        Enemy eThree = new Enemy("eThree", 20, 10, 5, null);
-        Enemy eFour = new Enemy("eFour", 20, 10, 5, null);
+        Dungeon dungeon = new Dungeon();
+        dungeon.generate(3);
+        Room battleRoom = dungeon.getRoom(1);
 
         CombatController controller = new CombatController();
 
         List<Player> players = new ArrayList<>(List.of(pOne, pTwo, pThree, pFour));
-        List<Enemy> enemies = new ArrayList<>(List.of(eOne, eTwo, eThree, eFour));
+        List<Enemy> enemies = battleRoom.getEnemies();
 
         List<Player> selectable = new ArrayList<>(List.of(p));
         selectable.addAll(players);
@@ -162,8 +163,22 @@ class main {
             CombatController.CombatStatus status = controller.checkCombatStatus(players, enemies);
             updateCombatDisplay(players, enemies, playerArea, enemyArea, killFeedArea, killFeed, combatStatus, controller.getCurrentRound(), status);
             positionPlayerButtons(players, pbuttons, playerArea);
-            if(status != CombatController.CombatStatus.ONGOING) {
-                ((Timer)e.getSource()).stop();
+            if (status == CombatController.CombatStatus.PLAYERS_WIN) {
+                Player survivor = players.get(0);
+                Item loot = battleRoom.getEnemies().get(0).dropLoot();
+
+                if (loot != null) {
+                    survivor.getInv().addToIndex(loot, 3);
+                    survivor.getStatUps();
+                    survivor.applyStatUps();
+                    selection.select(survivor);
+                }
+
+                combatStatus.setText("Room 3/3 - Dungeon cleared");
+                ((Timer) e.getSource()).stop();
+            } else if (status == CombatController.CombatStatus.ENEMIES_WIN) {
+                combatStatus.setText("Party defeated");
+                ((Timer) e.getSource()).stop();
             }
         });
 

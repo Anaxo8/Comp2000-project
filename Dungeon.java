@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import Entities.Enemy;
+import Items.Weapon;
 
 public class Dungeon {
     private ArrayList<Room> rooms;
@@ -29,6 +31,14 @@ public class Dungeon {
 
             Room room = new Room(i, role);
             room.rollRoomType();
+            
+            if (i == 1 && role == RoomRole.NORMAL) {
+                room.addEnemy(new Enemy("eOne", 20, 5, 5, new Weapon("Iron Sword", 30, 5)));
+                room.addEnemy(new Enemy("eTwo", 15, 5, 5, null));
+                room.addEnemy(new Enemy("eThree", 20, 10, 5, null));
+                room.addEnemy(new Enemy("eFour", 20, 10, 5, null));
+            }
+
             rooms.add(room);
         }
     }
