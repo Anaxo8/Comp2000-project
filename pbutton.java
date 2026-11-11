@@ -29,6 +29,7 @@ public class pbutton {
     private void loadGear(JButton[] slots, JTextArea items)
     {
         main.selectedPlayer = player;
+        main.updategearscore(player);
         items.setText("");
 
         for(int i = 0; i < slots.length; i++)
