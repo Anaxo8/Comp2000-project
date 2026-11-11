@@ -41,6 +41,9 @@ public class Dungeon {
 
     public Room goNextRoom(){
         currentRoom++;
+        if (currentRoom >= rooms.size()){
+            return null;    
+        }
         return rooms.get(currentRoom);
     }
 

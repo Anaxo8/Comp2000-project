@@ -171,7 +171,11 @@ class main {
                 // loot
                 controller.playersLootEnemies(players); //hey this worked                
                 // go next room
-                dungeon.goNextRoom();
+                Room currentRoom = dungeon.goNextRoom();
+                if (currentRoom == null){
+                    ((Timer)e.getSource()).stop(); 
+                }
+                
                 // load new enemies
                 enemies.addAll(dungeon.getCurrentRoom().contents);
                 // heal players
