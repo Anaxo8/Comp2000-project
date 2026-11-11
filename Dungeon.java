@@ -2,9 +2,11 @@ import java.util.ArrayList;
 
 public class Dungeon {
     private ArrayList<Room> rooms;
+    private int currentRoom;
 
     public Dungeon() {
         rooms = new ArrayList<>();
+        this.currentRoom = 0; // start from 1st room
     }
 
     public void generate(int roomCount) {
@@ -33,6 +35,15 @@ public class Dungeon {
         }
     }
     
+    public Room getCurrentRoom(){
+        return rooms.get(currentRoom);
+    }
+
+    public Room goNextRoom(){
+        currentRoom++;
+        return rooms.get(currentRoom);
+    }
+
     public ArrayList<Room> getRooms() {
         return rooms;
     }

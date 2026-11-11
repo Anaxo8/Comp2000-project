@@ -1,0 +1,8 @@
+name,hp,atk,def,difficulty
+zombie,20,5,5,easy
+kobold,15,8,5,easy
+skeleton,25,8,8,med
+werewolf,40,10,10,med
+big spider,35,10,10,hard
+traitor,30,15,10,hard
+dragonborn,40,15,10,hard

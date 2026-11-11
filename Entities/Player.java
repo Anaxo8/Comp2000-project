@@ -23,6 +23,8 @@ public class Player extends Entity {
         Item keep = worst.compareBetter(newItem); // keep the better one
         this.inv.addToIndex(keep, index);
         
+        this.getStatUps();
+        this.applyStatUps();
     }
 
     private Item findWorst(){

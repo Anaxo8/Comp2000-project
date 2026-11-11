@@ -1,0 +1,14 @@
+type,name,score,statUp
+weapon,bronze sword,10,30
+weapon,iron sword,20,40
+weapon,steel sword,30,55
+weapon,carbon doom sword,50,65
+armour,leather cap,15,5
+armour,steel cap,20,10
+armour,leather shirt,15,5
+armour,steel chestplate,20,10
+armour,leather pants,15,5
+armour,steel pants,20,10
+armour,leather boots,15,5
+armour,steel boots,20,10
+armour,super boots,30,20

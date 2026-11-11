@@ -10,9 +10,20 @@ public class Enemy extends Entity {
         this.loot = loot;
     }
 
+    public void setLoot(Item loot){
+        this.loot = loot;
+    }
+
     // TODO: should drop its items on death
 
     public Item dropLoot(){ // simply returns its inventory. Run this when the Enemy is died.
-        return this.loot;
+        Item temp = this.loot;
+        this.loot = null;
+
+        return temp;
+    }
+
+    public String toString(){
+        return String.format("%s, %s, %s", this.name, this.stats.toString(), this.loot.getName());
     }
 }

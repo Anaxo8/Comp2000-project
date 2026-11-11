@@ -5,10 +5,12 @@ import java.util.Collections;
 import Entities.Entity;
 import Entities.Player;
 import Entities.Enemy;
+import Items.Item;
 
 public class CombatController {
 
     private List<Entity> turnOrder = new ArrayList<>();
+    private ArrayList<Item> lootedItems = new ArrayList<>();
     private int currentTurn = 0;
     private int currentRound = 0;
 
@@ -46,6 +48,14 @@ public class CombatController {
         }
     }
 
+    public void playersLootEnemies(List<Player> players){ // UNTESTED
+        for (int i = 0; i < players.size() && i < lootedItems.size(); i++){
+            players.get(i).swapBetter(lootedItems.get(i)); // player takes the loot if it is better than something they have
+        }
+
+        lootedItems.clear(); // remove untaken loot when done looting
+    }
+
     // Prepares a new round by creating and shuffling the attack order.
     public void prepareRound(List<Player> players, List<Enemy> enemies) {
         turnOrder.clear();
@@ -65,7 +75,6 @@ public class CombatController {
 
     // Performs one attack at a time so the GUI can display combat live.
     public void oneAttack(List<Player> players, List<Enemy> enemies, KillFeed killFeed) {
-        
         if(checkCombatStatus(players, enemies) != CombatStatus.ONGOING) {
             return;
         }
@@ -100,12 +109,16 @@ public class CombatController {
             }
 
             T target = strategy.selectTarget(targets);
-
+            
             attacker.attack(target);
 
             if(target.isDied()) {
                 killFeed.addKill(attacker.getName(), target.getName());
-                targets.remove(target);
+                if (target instanceof Enemy){ //if you kill an enemy, it adds it loot to the loot pool
+                    Enemy dead = (Enemy) target;
+                    lootedItems.add(dead.dropLoot());
+                }
+                targets.remove(target); 
             }
 
         } catch (NoTargetsAvailableException e) {
