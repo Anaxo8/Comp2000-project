@@ -70,7 +70,6 @@ class main {
         PlayerSelection selection = new PlayerSelection();
         selection.registerobserver(new gearslotobserver(gearslots));
         selection.registerobserver(new gearscoreobserver(gearscore));
-        selection.registerobserver(player -> itemDescription.setText(""));
 
         helmet.addActionListener(e -> LoadChar(selection.getSelected(), itemDescription, 0));
         chestplate.addActionListener(e -> LoadChar(selection.getSelected(), itemDescription, 1));
