@@ -52,15 +52,16 @@ class main {
         JLabel border = new JLabel(new ImageIcon("./images/border.png"));
         JLabel bg = new JLabel(new ImageIcon("./images/bg.png"));
         JTextArea itemDescription = new JTextArea();
-        itemDescription.setText("DWAODPWAKDA");
-        itemDescription.setBounds(300, 300, 400, 130);
+        itemDescription.setText("");
+        itemDescription.setLineWrap(true);
+        itemDescription.setBounds(300, 300, 130, 130);
         itemDescription.setEditable(false);
         itemDescription.setOpaque(false);
         itemDescription.setForeground(Color.WHITE); 
         itemDescription.setFont(new Font("Arial", Font.BOLD, 14));
 
         JLabel gearscore = new JLabel();
-        gearscore.setBounds(40,245,200,30);
+        gearscore.setBounds(300,275,200,30);
         gearscore.setForeground(Color.WHITE);
         gearscore.setFont(new Font("Arial", Font.BOLD, 14));
         frame.add(gearscore);
