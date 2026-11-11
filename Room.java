@@ -23,14 +23,14 @@ public class Room{
     private int id;
     private RoomType type;
     private RoomRole role;
-    public ArrayList<Object> contents;
+    public List<Enemy> contents;
     // can keep this, use Casting?  actually idk
 
     Room(int id, RoomRole role) {
         this.id = id;
         this.role = role;
         this.type = RoomType.EMPTY;
-        this.contents = new ArrayList<>();
+        this.contents = new ArrayList<Enemy>();
     }
 
     public void rollRoomType() {
@@ -58,17 +58,17 @@ public class Room{
             roll = n.nextInt(101);
             String difficulty = null;
 
-            if (roll <= 45) { // 0 - 45
+            if (roll <= 70) { // 0 - 45
                 difficulty = "easy";
             }
-            else if (roll <= 80) { // 46 - 80
+            else if (roll <= 90) { // 46 - 80
                 difficulty = "med";
             }
             else { // 81 - 100
                 difficulty = "hard";
             }
 
-            int enemyCount = n.nextInt(5) + 1; // 1 - 5 enemies
+            int enemyCount = n.nextInt(4) + 1; // 1 - 4 enemies
 
             this.contents.addAll(generateEnemies(enemyCount, difficulty)); 
         }
@@ -200,11 +200,13 @@ public class Room{
         }
     }
 
+    /* 
     public void addContent(Object content) {
         if (content != null) {
             contents.add(content);
         }
     }
+    */
 
     public void clearContents() {
         contents.clear();

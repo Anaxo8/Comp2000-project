@@ -62,6 +62,9 @@ public abstract class Entity {
         return isDied;
     }
 
+    public void maxHeal(){ //heal to max HP
+        this.stats.setHp(this.stats.getHpMax()); 
+    }
 
     // getters and setters
     public int getHp() {

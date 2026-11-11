@@ -14,6 +14,10 @@ public class TargetSelector<T extends Entity> {
         Random random = new Random();
         int index = random.nextInt(targets.size());
 
+        while (targets.get(index).isDied()){
+            index = random.nextInt(targets.size()); //will work as this is only used for players
+        }
+
         return targets.get(index);
     }
 

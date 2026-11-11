@@ -9,14 +9,13 @@ import javax.swing.*;
 import java.util.Objects;
 import java.util.stream.IntStream;
 import Items.*;
+import java.util.Arrays;
 
 class main {
     public static Player selectedPlayer;
     public static JLabel gearscore = new JLabel();
     public static void main(String[] args)
     {
-
-
         JButton chestplate = new JButton(new ImageIcon("./images/emptychestplate.png"));
         JButton boots = new JButton(new ImageIcon("./images/emptyboots.png"));
         JButton sword = new JButton(new ImageIcon("./images/emptysword.png"));
@@ -33,18 +32,16 @@ class main {
         Player james = new Player("james", 10, 10, 10);
         james.addItem(new Items.Armour("banded Helmet", 20, 200));
 
-        initUI(frame, sword, shield, helmet, chestplate, boots, james);
+        Dungeon dungeon = new Dungeon();
+        dungeon.generate(5);
 
+        Player pOne = new Player("pOne", 20, 10, 5);
+        Player pTwo = new Player("pTwo", 20, 10, 5);
+        Player pThree = new Player("pThree", 15, 5, 1);
+        Player pFour = new Player("pFour", 20, 10, 10);
+        List<Player> players = new ArrayList<>(Arrays.asList(pOne, pTwo, pThree, pFour));
 
-
-
-        Dungeon one = new Dungeon();
-        one.generate(3);
-
-        for (Object thing : one.getRoom(1).contents) {
-            System.out.println(thing);
-        }
-
+        initUI(frame, sword, shield, helmet, chestplate, boots, null, dungeon, players);
     }
 
     public static void LoadChar(Player p, JTextArea ItemDescription, int index)
@@ -60,7 +57,7 @@ class main {
         System.out.println("LOADED ITEM");
     }
 
-    public static void initUI(JFrame frame, JButton sword, JButton shield, JButton helmet, JButton chestplate, JButton boots, Player p){
+    public static void initUI(JFrame frame, JButton sword, JButton shield, JButton helmet, JButton chestplate, JButton boots, Player p, Dungeon dungeon, List<Player> plist   ){
 
         JLabel border = new JLabel(new ImageIcon("./images/border.png"));
         JLabel bg = new JLabel(new ImageIcon("./images/bg.png"));
@@ -71,13 +68,18 @@ class main {
         itemDescription.setOpaque(false);
         itemDescription.setForeground(Color.WHITE); 
         itemDescription.setFont(new Font("Arial", Font.BOLD, 14));
-        selectedPlayer = p;
+        Player pOne = plist.get(0);
+        Player pTwo = plist.get(1);
+        Player pThree = plist.get(2);
+        Player pFour = plist.get(3);
+
+        selectedPlayer = pOne;
         gearscore.setBounds(40,245,200,30);
         gearscore.setForeground(Color.WHITE);
         gearscore.setFont(new Font("Arial", Font.BOLD, 14));
         frame.add(gearscore);
 
-        updategearscore(p);
+        updategearscore(pOne);
         helmet.addActionListener(e -> LoadChar(selectedPlayer, itemDescription, 0));
         chestplate.addActionListener(e -> LoadChar(selectedPlayer, itemDescription, 1));
         boots.addActionListener(e -> LoadChar(selectedPlayer, itemDescription, 2));
@@ -109,12 +111,7 @@ class main {
         JTextArea enemyArea = new JTextArea();
         JLabel combatStatus = new JLabel();
 
-        Player pOne = new Player("pOne", 20, 10, 5);
-        Player pTwo = new Player("pTwo", 20, 10, 5);
-        Player pThree = new Player("pThree", 10, 5, 1);
-        Player pFour = new Player("pFour", 25, 10, 10);
-
-  
+        List<Enemy> enemies = dungeon.getCurrentRoom().contents;
 
         Enemy eOne = new Enemy("eOne", 20, 5, 5, new Weapon("BROKEN!!", 99, 30));
         Enemy eTwo = new Enemy("eTwo", 15, 5, 5, null);
@@ -124,11 +121,12 @@ class main {
         CombatController controller = new CombatController();
 
         List<Player> players = new ArrayList<>(List.of(pOne, pTwo, pThree, pFour));
-        List<Enemy> enemies = new ArrayList<>(List.of(eOne, eTwo, eThree, eFour));
+        List<Player> alivePlayers = new ArrayList<Player>(players);
+        //List<Enemy> enemies = new ArrayList<>(List.of(eOne, eTwo, eThree, eFour));
 
         JButton[] gearslots = {helmet,chestplate,boots,sword,shield};
-        List<Player> selectable = new ArrayList<>(List.of(p));
-        selectable.addAll(players);
+        List<Player> selectable = new ArrayList<>(players);
+        // selectable.addAll(players);
 
         List<pbutton> pbuttons = new ArrayList<>();
         for (Player player : players) {
@@ -163,13 +161,33 @@ class main {
 
         // Runs one combat attack every 700ms and refreshes the GUI to show the battle live.
         Timer combatTimer = new Timer(700, e -> {
-            controller.oneAttack(players, enemies, killFeed);
-            CombatController.CombatStatus status = controller.checkCombatStatus(players, enemies);
+            controller.oneAttack(alivePlayers, enemies, killFeed);
+            CombatController.CombatStatus status = controller.checkCombatStatus(alivePlayers, enemies);
             updateCombatDisplay(players, enemies, playerArea, enemyArea, killFeedArea, killFeed, combatStatus, controller.getCurrentRound(), status);
             positionPlayerButtons(players, pbuttons, playerArea);
-            if(status != CombatController.CombatStatus.ONGOING) {
-                ((Timer)e.getSource()).stop();
-                controller.playersLootEnemies(players);
+            
+                
+            if (status == CombatController.CombatStatus.PLAYERS_WIN){
+                try {
+                    Thread.sleep(700); // pause for a bit to show that you win
+                } catch (InterruptedException i) {
+                    System.out.println("buhhhhfduhsfud");
+                }
+                // loot
+                controller.playersLootEnemies(players); //hey this worked                
+                // go next room
+                dungeon.goNextRoom();
+                // load new enemies
+                enemies.addAll(dungeon.getCurrentRoom().contents);
+                // heal players
+                pOne.maxHeal();
+                pTwo.maxHeal();
+                pThree.maxHeal();
+                pFour.maxHeal();
+            }    
+            
+            if (status == CombatController.CombatStatus.ENEMIES_WIN){
+                ((Timer)e.getSource()).stop(); // only stopping when enemies win
             }
         });
 

@@ -11,7 +11,6 @@ public class CombatController {
 
     private List<Entity> turnOrder = new ArrayList<>();
     private ArrayList<Item> lootedItems = new ArrayList<>();
-    private ArrayList<Player> deadPlayers = new ArrayList<>();
     private int currentTurn = 0;
     private int currentRound = 0;
 
@@ -54,7 +53,7 @@ public class CombatController {
             players.get(i).swapBetter(lootedItems.get(i)); // player takes the loot if it is better than something they have
         }
 
-
+        lootedItems.clear(); // remove untaken loot when done looting
     }
 
     // Prepares a new round by creating and shuffling the attack order.
@@ -110,7 +109,7 @@ public class CombatController {
             }
 
             T target = strategy.selectTarget(targets);
-
+            
             attacker.attack(target);
 
             if(target.isDied()) {
@@ -119,11 +118,7 @@ public class CombatController {
                     Enemy dead = (Enemy) target;
                     lootedItems.add(dead.dropLoot());
                 }
-                else if (target instanceof Player){
-                    Player dead = (Player) target;
-                    deadPlayers.add(dead);
-                }
-                targets.remove(target);
+                targets.remove(target); 
             }
 
         } catch (NoTargetsAvailableException e) {
