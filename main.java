@@ -162,7 +162,7 @@ class main {
             positionPlayerButtons(players, pbuttons, playerArea);
             if(status != CombatController.CombatStatus.ONGOING) {
                 ((Timer)e.getSource()).stop();
-                controller.playersLootEnemies(players, enemies);
+                controller.playersLootEnemies(players);
             }
         });
 
