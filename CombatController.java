@@ -100,7 +100,16 @@ public class CombatController {
         try {
 
             TargetSelector<T> selector = new TargetSelector<>();
-            T target = selector.selectRandomTarget(targets);
+            TargetingStrategy<T> strategy;
+            
+            if(attacker instanceof Enemy) {
+                strategy = selector::selectLowestHpTarget;
+            }
+            else {
+                strategy = selector::selectRandomTarget;
+            }
+
+            T target = strategy.selectTarget(targets);
 
             attacker.attack(target);
 

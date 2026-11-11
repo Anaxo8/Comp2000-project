@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Iterator;
 
 import Entities.Enemy;
 import Entities.Inventory;
@@ -200,6 +201,10 @@ public class Tester {
         System.out.println("eThree: " + eThree.getHp());
         System.out.println("eFour: " + eFour.getHp());
 
-        System.out.println(killfeed.getMessages());
+        Iterator<String> iterator = killfeed.iterator();
+
+        while (iterator.hasNext()) {
+        System.out.println(iterator.next());
+}
     }
 }
