@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import javax.swing.*;
+
+import Items.*;
 class main {
     public static Player selectedPlayer;
     public static void main(String[] args)
@@ -33,6 +35,12 @@ class main {
 
 
 
+        Dungeon one = new Dungeon();
+        one.generate(3);
+
+        for (Object thing : one.getRoom(1).contents) {
+            System.out.println(thing);
+        }
 
     }
 
@@ -101,7 +109,7 @@ class main {
 
   
 
-        Enemy eOne = new Enemy("eOne", 20, 5, 5, null);
+        Enemy eOne = new Enemy("eOne", 20, 5, 5, new Weapon("BROKEN!!", 99, 30));
         Enemy eTwo = new Enemy("eTwo", 15, 5, 5, null);
         Enemy eThree = new Enemy("eThree", 20, 10, 5, null);
         Enemy eFour = new Enemy("eFour", 20, 10, 5, null);
@@ -154,6 +162,7 @@ class main {
             positionPlayerButtons(players, pbuttons, playerArea);
             if(status != CombatController.CombatStatus.ONGOING) {
                 ((Timer)e.getSource()).stop();
+                controller.playersLootEnemies(players, enemies);
             }
         });
 

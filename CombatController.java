@@ -46,6 +46,12 @@ public class CombatController {
         }
     }
 
+    public void playersLootEnemies(List<Player> players, List<Enemy> enemies){ // UNTESTED
+        for (int i = 0; i < players.size() && i < enemies.size(); i++){
+            players.get(i).swapBetter(enemies.get(i).dropLoot()); // player takes the loot if it is better than something they have
+        }
+    }
+
     // Prepares a new round by creating and shuffling the attack order.
     public void prepareRound(List<Player> players, List<Enemy> enemies) {
         turnOrder.clear();
@@ -65,7 +71,6 @@ public class CombatController {
 
     // Performs one attack at a time so the GUI can display combat live.
     public void oneAttack(List<Player> players, List<Enemy> enemies, KillFeed killFeed) {
-        
         if(checkCombatStatus(players, enemies) != CombatStatus.ONGOING) {
             return;
         }
