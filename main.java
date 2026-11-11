@@ -40,7 +40,7 @@ class main {
         Player pFour = new Player("pFour", 20, 10, 10);
         List<Player> players = new ArrayList<>(Arrays.asList(pOne, pTwo, pThree, pFour));
 
-        initUI(frame, sword, shield, helmet, chestplate, boots, null, dungeon, players);
+        initUI(frame, sword, shield, helmet, chestplate, boots, pOne, dungeon, players);
     }
 
     public static void LoadChar(Player p, JTextArea ItemDescription, int index)
@@ -74,9 +74,10 @@ class main {
         Player pThree = plist.get(2);
         Player pFour = plist.get(3);
 
-        selectedPlayer = pOne;
-        gearscore.setBounds(300,275,200,30);
+        Player selectedPlayer = pOne;
+
         JLabel gearscore = new JLabel();
+        gearscore.setBounds(300,275,200,30);
         gearscore.setForeground(Color.WHITE);
         gearscore.setFont(new Font("Arial", Font.BOLD, 14));
         frame.add(gearscore);
